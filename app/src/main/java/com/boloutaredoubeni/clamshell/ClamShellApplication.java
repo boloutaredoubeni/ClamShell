@@ -4,7 +4,8 @@ import android.app.Application;
 
 import timber.log.Timber;
 
-public class ClamShellApplication extends Application {
+public final class ClamShellApplication extends Application {
+
 
   @Override
   public void onCreate() {
@@ -16,4 +17,5 @@ public class ClamShellApplication extends Application {
   private void initTimber() {
     Timber.plant(new Timber.DebugTree());
   }
+
 }

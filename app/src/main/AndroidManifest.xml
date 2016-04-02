@@ -11,14 +11,13 @@
         android:stateNotNeeded="true"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen">
-        <activity android:name=".activities.HomeScreenActivity">
+
+        <activity android:name=".activities.AppsViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.HOME"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".activities.AppsViewActivity">
         </activity>
     </application>
 
