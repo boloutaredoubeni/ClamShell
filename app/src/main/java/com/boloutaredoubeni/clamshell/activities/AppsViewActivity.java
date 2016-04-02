@@ -1,27 +1,14 @@
 package com.boloutaredoubeni.clamshell.activities;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.boloutaredoubeni.clamshell.R;
-import com.boloutaredoubeni.clamshell.adapters.AppListAdapter;
-import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import timber.log.Timber;
+import com.boloutaredoubeni.clamshell.fragments.AppListFragment;
 
 public final class AppsViewActivity extends Activity {
 
-  private static final int APP_NUM_WIDTH = 4;
 
-  // FIXME: Don't let me rotate
   // FIXME: 4/2/16 add a search bar
   // FIXME: 4/2/16 Make sure the are in some kind of order
 
@@ -31,35 +18,13 @@ public final class AppsViewActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_app_view);
 
-    loadView();
+    getFragmentManager().beginTransaction().add(R.id.app_view_container, new AppListFragment()).commit();
   }
 
-
-  private void loadView() {
-
-    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.app_list);
-    recyclerView.setHasFixedSize(true);
-    recyclerView.setLayoutManager(new GridLayoutManager(this, APP_NUM_WIDTH));
-    AppListAdapter adapter = new AppListAdapter(this, listUserApps());
-    recyclerView.setAdapter(adapter);
-  }
 
   /**
    *
    * @return A list of applications that can be opened via a launcher
    */
-  private List<UserApplicationInfo> listUserApps() {
-    PackageManager manager = getPackageManager();
-    List<UserApplicationInfo> apps = new ArrayList<>();
-    Intent i = new Intent(Intent.ACTION_MAIN, null);
-    i.addCategory(Intent.CATEGORY_LAUNCHER);
 
-    List<ResolveInfo> launchableApps = manager.queryIntentActivities(i, 0);
-    for (ResolveInfo info : launchableApps) {
-      UserApplicationInfo app = UserApplicationInfo.createFrom(this, info);
-      apps.add(app);
-    }
-    Timber.i("Found %d apps", apps.size());
-    return apps;
-  }
 }

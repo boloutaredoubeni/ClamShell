@@ -26,8 +26,7 @@ public final class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.Vi
   private Context mContext;
 
   // Fixme: icons need to be the same size
-  // Fixme: need to be in a grid view
-  // // FIXME: 4/2/16 text color must complement background somehow
+
 
   public AppListAdapter(Context context, List<UserApplicationInfo> apps) {
     mApps = apps;
@@ -45,14 +44,11 @@ public final class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.Vi
     final UserApplicationInfo app = mApps.get(position);
     holder.icon.setImageDrawable(app.getIcon());
     holder.appName.setText(app.getAppName());
-    holder.icon.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        PackageManager pm = mContext.getPackageManager();
-        Intent i = pm.getLaunchIntentForPackage(app.getPackage());
-        Timber.i("Starting %s", app.getPackage());
-        mContext.startActivity(i);
-      }
+    holder.icon.setOnClickListener(v -> {
+      PackageManager pm = mContext.getPackageManager();
+      Intent i = pm.getLaunchIntentForPackage(app.getPackage());
+      Timber.i("Starting %s", app.getPackage());
+      mContext.startActivity(i);
     });
   }
 
