@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -47,19 +48,25 @@ public class AppListFragment extends Fragment {
     return root;
   }
 
+  @Override
+  public void onResume() {
+    super.onResume();
+
+    new GetUserAppsTask().execute();
+  }
+
   private void loadView(View view) {
 
     mRecyclerView = (RecyclerView)view.findViewById(R.id.app_list);
     mRecyclerView.setHasFixedSize(true);
     mRecyclerView.setLayoutManager(
         new GridLayoutManager(getActivity(), APP_NUM_WIDTH));
-    List<UserApplicationInfo> apps = listUserApps();
+    List<UserApplicationInfo> apps = new ArrayList<>();
     //  FIXME:  UserApplicationInfo.sortApps(apps);
     mAdapter = new AppListAdapter(getActivity(), apps);
     mRecyclerView.setAdapter(mAdapter);
 
     mSearchInput = (EditText)view.findViewById(R.id.search_edit_text);
-    // TODO should this use a text watcher
     mSearchInput.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence s, int start, int count,
@@ -94,5 +101,23 @@ public class AppListFragment extends Fragment {
     }
     Timber.i("Found %d apps", apps.size());
     return apps;
+  }
+
+  private final class GetUserAppsTask
+      extends AsyncTask<Void, Void, List<UserApplicationInfo>> {
+
+    @Override
+    protected List<UserApplicationInfo> doInBackground(Void... params) {
+      return listUserApps();
+    }
+
+    @Override
+    protected void
+    onPostExecute(List<UserApplicationInfo> userApplicationInfos) {
+      super.onPostExecute(userApplicationInfos);
+
+      mAdapter.clearThenAddAll(userApplicationInfos);
+      Timber.d("Adding all apps to the view");
+    }
   }
 }

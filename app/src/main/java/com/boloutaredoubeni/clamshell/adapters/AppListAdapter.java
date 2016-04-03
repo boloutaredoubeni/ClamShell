@@ -49,6 +49,14 @@ public final class AppListAdapter
     return new ViewHolder(itemView);
   }
 
+  public void clearThenAddAll(List<UserApplicationInfo> apps) {
+    mApps.clear();
+    mOriginalApps.clear();
+    mApps.addAll(apps);
+    mOriginalApps.addAll(apps);
+    notifyDataSetChanged();
+  }
+
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
     final UserApplicationInfo app = mApps.get(position);
