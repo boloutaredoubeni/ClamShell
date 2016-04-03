@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
     android:orientation="vertical"
     tools:context=".activities.AppsViewActivity">
+
 
    <FrameLayout
        android:id="@+id/app_view_container"

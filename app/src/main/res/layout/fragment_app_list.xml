@@ -6,11 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:elevation="8dp"
     tools:context=".activities.AppsViewActivity">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="10dp"
+        android:background="#E5DBCF">
+        <EditText
+            android:id="@+id/search_edit_text"
+            android:hint="Search ..."
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:imeOptions="actionDone"/>
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
+        android:elevation="8dp"
         android:id="@+id/app_list"
         android:scrollbars="vertical"
         android:background="@drawable/app_list_background"
