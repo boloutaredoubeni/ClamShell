@@ -11,7 +11,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:elevation="10dp"
         android:background="#E5DBCF">
         <EditText
@@ -20,7 +20,6 @@
             android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:imeOptions="actionDone"/>
     </LinearLayout>
 

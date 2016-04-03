@@ -34,15 +34,11 @@ public class AppListFragment extends Fragment {
 
   private static final int APP_NUM_WIDTH = 4;
 
+  @Bind(R.id.app_list) RecyclerView recyclerView;
 
-  @Bind(R.id.app_list)
-  RecyclerView recyclerView;
-
-  @Bind(R.id.search_edit_text)
-  EditText searchBox;
+  @Bind(R.id.search_edit_text) EditText searchBox;
 
   private AppListAdapter mAdapter;
-
 
   @Nullable
   @Override
@@ -71,12 +67,10 @@ public class AppListFragment extends Fragment {
     mAdapter = new AppListAdapter(getActivity(), apps);
     recyclerView.setAdapter(mAdapter);
 
-
     searchBox.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence s, int start, int count,
-                                    int after) {
-      }
+                                    int after) {}
 
       @Override
       public void onTextChanged(CharSequence s, int start, int before,
@@ -85,16 +79,15 @@ public class AppListFragment extends Fragment {
       }
 
       @Override
-      public void afterTextChanged(Editable s) {
-      }
+      public void afterTextChanged(Editable s) {}
     });
   }
 
-//  @OnTextChanged(R.id.search_edit_text)
-//  void executeSearch(CharSequence s, int start, int before,
-//                     int count) {
-//    mAdapter.getFilter().filter(s.toString());
-//  }
+  //  @OnTextChanged(R.id.search_edit_text)
+  //  void executeSearch(CharSequence s, int start, int before,
+  //                     int count) {
+  //    mAdapter.getFilter().filter(s.toString());
+  //  }
 
   /**
    *
