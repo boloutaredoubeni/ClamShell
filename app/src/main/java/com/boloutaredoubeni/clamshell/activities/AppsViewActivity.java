@@ -14,6 +14,7 @@ import com.boloutaredoubeni.clamshell.fragments.SettingsFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public final class AppsViewActivity extends Activity {
 
@@ -47,12 +48,13 @@ public final class AppsViewActivity extends Activity {
     public Fragment getItem(int position) {
       switch (position) {
       case DASHBOARD_FRAG:
-        // TODO: get the dashboard fragment
+        Timber.d("Moving to dashboard");
         return new DashboardFragment();
       case APPLIST_FRAG:
+        Timber.d("Moving to app list");
         return new AppListFragment();
       case SETTINGS_FRAG:
-        // TODO: get Settings fragment
+        Timber.d("Moving to settings");
         return new SettingsFragment();
       }
       return null;

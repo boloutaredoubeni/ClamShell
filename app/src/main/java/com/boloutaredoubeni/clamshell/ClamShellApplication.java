@@ -12,6 +12,7 @@ public final class ClamShellApplication extends Application {
     super.onCreate();
 
     initTimber();
+    initButterKnife();
   }
 
   private void initTimber() { Timber.plant(new Timber.DebugTree()); }

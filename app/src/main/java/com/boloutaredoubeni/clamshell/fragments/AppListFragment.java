@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +23,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnTextChanged;
 import timber.log.Timber;
 
 /**
@@ -67,27 +66,27 @@ public class AppListFragment extends Fragment {
     mAdapter = new AppListAdapter(getActivity(), apps);
     recyclerView.setAdapter(mAdapter);
 
-    searchBox.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count,
-                                    int after) {}
-
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before,
-                                int count) {
-        mAdapter.getFilter().filter(s.toString());
-      }
-
-      @Override
-      public void afterTextChanged(Editable s) {}
-    });
+//    searchBox.addTextChangedListener(new TextWatcher() {
+//      @Override
+//      public void beforeTextChanged(CharSequence s, int start, int count,
+//                                    int after) {}
+//
+//      @Override
+//      public void onTextChanged(CharSequence s, int start, int before,
+//                                int count) {
+//        mAdapter.getFilter().filter(s.toString());
+//      }
+//
+//      @Override
+//      public void afterTextChanged(Editable s) {}
+//    });
   }
 
-  //  @OnTextChanged(R.id.search_edit_text)
-  //  void executeSearch(CharSequence s, int start, int before,
-  //                     int count) {
-  //    mAdapter.getFilter().filter(s.toString());
-  //  }
+    @OnTextChanged(R.id.search_edit_text)
+    void executeSearch(CharSequence s, int start, int before,
+                       int count) {
+      mAdapter.getFilter().filter(s.toString());
+    }
 
   /**
    *
