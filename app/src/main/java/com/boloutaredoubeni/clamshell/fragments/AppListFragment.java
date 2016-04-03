@@ -62,7 +62,7 @@ public class AppListFragment extends Fragment {
     mRecyclerView.setLayoutManager(
         new GridLayoutManager(getActivity(), APP_NUM_WIDTH));
     List<UserApplicationInfo> apps = new ArrayList<>();
-    //  FIXME:  UserApplicationInfo.sortApps(apps);
+
     mAdapter = new AppListAdapter(getActivity(), apps);
     mRecyclerView.setAdapter(mAdapter);
 
@@ -103,9 +103,9 @@ public class AppListFragment extends Fragment {
     return apps;
   }
 
+  // TODO: enhancement, consider putting a loading screen
   private final class GetUserAppsTask
       extends AsyncTask<Void, Void, List<UserApplicationInfo>> {
-
     @Override
     protected List<UserApplicationInfo> doInBackground(Void... params) {
       return listUserApps();
@@ -113,10 +113,9 @@ public class AppListFragment extends Fragment {
 
     @Override
     protected void
-    onPostExecute(List<UserApplicationInfo> userApplicationInfos) {
-      super.onPostExecute(userApplicationInfos);
-
-      mAdapter.clearThenAddAll(userApplicationInfos);
+    onPostExecute(List<UserApplicationInfo> apps) {
+      super.onPostExecute(apps);
+      mAdapter.clearThenAddAll(apps);
       Timber.d("Adding all apps to the view");
     }
   }

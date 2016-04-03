@@ -16,6 +16,7 @@ import com.boloutaredoubeni.clamshell.R;
 import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -35,6 +36,7 @@ public final class AppListAdapter
 
   // Fixme: icons need to be the same size
   // Todo: databinding
+  // TODO: custom scroll bar
 
   public AppListAdapter(Context context, List<UserApplicationInfo> apps) {
     mApps = apps;
@@ -50,6 +52,7 @@ public final class AppListAdapter
   }
 
   public void clearThenAddAll(List<UserApplicationInfo> apps) {
+    Collections.sort(apps);
     mApps.clear();
     mOriginalApps.clear();
     mApps.addAll(apps);

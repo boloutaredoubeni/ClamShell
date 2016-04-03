@@ -10,7 +10,7 @@
         android:launchMode="singleTask"
         android:stateNotNeeded="true"
         android:supportsRtl="true"
-        android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen">
+        android:theme="@android:style/Theme.Wallpaper.NoTitleBar">
         <activity
             android:name=".activities.AppsViewActivity"
             android:screenOrientation="portrait">

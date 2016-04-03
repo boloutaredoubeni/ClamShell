@@ -8,7 +8,6 @@ import com.boloutaredoubeni.clamshell.fragments.AppListFragment;
 
 public final class AppsViewActivity extends Activity {
 
-  // FIXME: 4/2/16 Make sure the are in some kind of order
   // FIXME: show the status bar
 
   @Override

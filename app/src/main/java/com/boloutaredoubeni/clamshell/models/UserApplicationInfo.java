@@ -6,8 +6,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
-import java.util.Collections;
-import java.util.List;
+import java.text.Collator;
 
 /**
  * Copyright 2016 Boloutare Doubeni
@@ -19,9 +18,6 @@ public final class UserApplicationInfo
   private final String mAppName;
   private final String mPackage;
 
-  public static void sortApps(List<UserApplicationInfo> apps) {
-    Collections.sort(apps);
-  }
 
   /**
    * @param context Only needed to get the package manager. A reference to
@@ -53,13 +49,8 @@ public final class UserApplicationInfo
 
   @Override
   public int compareTo(@NonNull UserApplicationInfo another) {
-    if (equals(another)) {
-      return 0;
-    } else if ((getAppName().compareTo(another.getAppName()) < 0) ||
-               (getPackage().compareTo(another.getPackage()) < 0)) {
-      return -1;
-    }
-    return 1;
+    final Collator collator = Collator.getInstance();
+    return collator.compare(this.getAppName(), another.getAppName());
   }
 
   @Override
