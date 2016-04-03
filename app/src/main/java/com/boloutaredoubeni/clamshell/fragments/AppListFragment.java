@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 /**
@@ -33,18 +34,23 @@ public class AppListFragment extends Fragment {
 
   private static final int APP_NUM_WIDTH = 4;
 
-  private EditText mSearchInput;
 
-  @Bind(R.id.app_list) RecyclerView mRecyclerView;
+  @Bind(R.id.app_list)
+  RecyclerView recyclerView;
+
+  @Bind(R.id.search_edit_text)
+  EditText searchBox;
 
   private AppListAdapter mAdapter;
+
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
     View root = inflater.inflate(R.layout.fragment_app_list, container, false);
-    loadView(root);
+    ButterKnife.bind(this, root);
+    loadView();
     return root;
   }
 
@@ -55,22 +61,22 @@ public class AppListFragment extends Fragment {
     new GetUserAppsTask().execute();
   }
 
-  private void loadView(View view) {
+  private void loadView() {
 
-    mRecyclerView = (RecyclerView)view.findViewById(R.id.app_list);
-    mRecyclerView.setHasFixedSize(true);
-    mRecyclerView.setLayoutManager(
+    recyclerView.setHasFixedSize(true);
+    recyclerView.setLayoutManager(
         new GridLayoutManager(getActivity(), APP_NUM_WIDTH));
     List<UserApplicationInfo> apps = new ArrayList<>();
 
     mAdapter = new AppListAdapter(getActivity(), apps);
-    mRecyclerView.setAdapter(mAdapter);
+    recyclerView.setAdapter(mAdapter);
 
-    mSearchInput = (EditText)view.findViewById(R.id.search_edit_text);
-    mSearchInput.addTextChangedListener(new TextWatcher() {
+
+    searchBox.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence s, int start, int count,
-                                    int after) {}
+                                    int after) {
+      }
 
       @Override
       public void onTextChanged(CharSequence s, int start, int before,
@@ -79,9 +85,16 @@ public class AppListFragment extends Fragment {
       }
 
       @Override
-      public void afterTextChanged(Editable s) {}
+      public void afterTextChanged(Editable s) {
+      }
     });
   }
+
+//  @OnTextChanged(R.id.search_edit_text)
+//  void executeSearch(CharSequence s, int start, int before,
+//                     int count) {
+//    mAdapter.getFilter().filter(s.toString());
+//  }
 
   /**
    *
@@ -103,7 +116,8 @@ public class AppListFragment extends Fragment {
     return apps;
   }
 
-  // TODO: enhancement, consider putting a loading screen
+  // TODO: enhancement, consider putting a loading screen or load apps one by
+  // one
   private final class GetUserAppsTask
       extends AsyncTask<Void, Void, List<UserApplicationInfo>> {
     @Override
@@ -112,8 +126,7 @@ public class AppListFragment extends Fragment {
     }
 
     @Override
-    protected void
-    onPostExecute(List<UserApplicationInfo> apps) {
+    protected void onPostExecute(List<UserApplicationInfo> apps) {
       super.onPostExecute(apps);
       mAdapter.clearThenAddAll(apps);
       Timber.d("Adding all apps to the view");

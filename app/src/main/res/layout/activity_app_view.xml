@@ -9,7 +9,7 @@
     tools:context=".activities.AppsViewActivity">
 
 
-   <FrameLayout
+   <android.support.v4.view.ViewPager
        android:id="@+id/app_view_container"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"/>

@@ -18,7 +18,6 @@ public final class UserApplicationInfo
   private final String mAppName;
   private final String mPackage;
 
-
   /**
    * @param context Only needed to get the package manager. A reference to
    * context is NEVER stored here
