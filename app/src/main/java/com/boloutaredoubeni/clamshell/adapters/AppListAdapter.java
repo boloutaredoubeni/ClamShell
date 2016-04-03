@@ -81,7 +81,7 @@ public final class AppListAdapter
 
   @Override
   public Filter getFilter() {
-    return new AppInfoFilter(this, mApps);
+    return new AppInfoFilter(this);
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -97,17 +97,15 @@ public final class AppListAdapter
   private static final class AppInfoFilter extends Filter {
 
     private AppListAdapter mAdapter;
-    private final List<UserApplicationInfo> mOriginalList;
     private final List<UserApplicationInfo> mFilteredList;
 
-    private AppInfoFilter(AppListAdapter adapter,
-                          List<UserApplicationInfo> orginalList) {
+    private AppInfoFilter(AppListAdapter adapter) {
       super();
       mAdapter = adapter;
-      mOriginalList = orginalList;
       mFilteredList = new ArrayList<>();
     }
 
+    // FIXME: this isnt working properly
     @Override
     protected FilterResults performFiltering(CharSequence constraint) {
       mFilteredList.clear();
@@ -118,7 +116,7 @@ public final class AppListAdapter
         final String filterPattern = constraint.toString().toLowerCase();
 
         // TODO: refine me
-        for (UserApplicationInfo app : mOriginalList) {
+        for (UserApplicationInfo app : mAdapter.mOriginalApps) {
           if (app.getAppName().contains(filterPattern)) {
             mFilteredList.add(app);
           }
@@ -134,7 +132,11 @@ public final class AppListAdapter
     protected void publishResults(CharSequence constraint,
                                   FilterResults results) {
       mAdapter.mApps.clear();
-      mAdapter.mApps.addAll(mFilteredList);
+      if (mFilteredList.size() > 0) {
+        mAdapter.mApps.addAll(mFilteredList);
+      } else {
+        mAdapter.mApps.addAll(mAdapter.mOriginalApps);
+      }
       mAdapter.notifyDataSetChanged();
     }
   }

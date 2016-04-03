@@ -65,28 +65,12 @@ public class AppListFragment extends Fragment {
 
     mAdapter = new AppListAdapter(getActivity(), apps);
     recyclerView.setAdapter(mAdapter);
-
-//    searchBox.addTextChangedListener(new TextWatcher() {
-//      @Override
-//      public void beforeTextChanged(CharSequence s, int start, int count,
-//                                    int after) {}
-//
-//      @Override
-//      public void onTextChanged(CharSequence s, int start, int before,
-//                                int count) {
-//        mAdapter.getFilter().filter(s.toString());
-//      }
-//
-//      @Override
-//      public void afterTextChanged(Editable s) {}
-//    });
   }
 
-    @OnTextChanged(R.id.search_edit_text)
-    void executeSearch(CharSequence s, int start, int before,
-                       int count) {
-      mAdapter.getFilter().filter(s.toString());
-    }
+  @OnTextChanged(R.id.search_edit_text)
+  void executeSearch(CharSequence query) {
+    mAdapter.getFilter().filter(query.toString());
+  }
 
   /**
    *
