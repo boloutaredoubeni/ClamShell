@@ -18,9 +18,10 @@ import com.boloutaredoubeni.clamshell.R;
 import com.boloutaredoubeni.clamshell.adapters.PhotoCarouselAdapter;
 import com.boloutaredoubeni.clamshell.apis.owm.OpenWeatherMap;
 import com.boloutaredoubeni.clamshell.apis.owm.WeatherService;
-import com.boloutaredoubeni.clamshell.apis.owm.json.CurrentWeather;
-import com.boloutaredoubeni.clamshell.apis.owm.json.Forecast;
+import com.boloutaredoubeni.clamshell.apis.owm.models.CurrentWeather;
+import com.boloutaredoubeni.clamshell.apis.owm.models.Forecast;
 import com.boloutaredoubeni.clamshell.models.UserPhoto;
+import com.boloutaredoubeni.clamshell.models.Weather;
 import com.boloutaredoubeni.clamshell.secret.AppKeys;
 import com.boloutaredoubeni.clamshell.viewmodels.WeatherDashCard;
 import com.google.android.gms.common.ConnectionResult;
@@ -51,7 +52,7 @@ public class DashboardFragment
   private WeatherDashCard mWeatherCard;
   private PhotoCarouselAdapter mAdapter;
 
-  @Bind(R.id.weather_data) TextView currentWeather;
+//  @Bind(R.id.weather_data) TextView currentWeather;
   @Bind(R.id.photo_recycler) RecyclerView photoCarousel;
 
   private GoogleApiClient mClient;
@@ -120,9 +121,11 @@ public class DashboardFragment
     if (payload == null) {
       return;
     }
-    currentWeather.setText(payload.currentWeather != null
-                               ? payload.currentWeather.toString()
-                               : "Error!");
+    mWeatherCard.bind(Weather.createFrom(payload.currentWeather));
+    mWeatherCard.bind(Weather.getWeeklyForecastFrom(payload.forecast));
+//    currentWeather.setText(payload.currentWeather != null
+//                               ? payload.currentWeather.toString()
+//                               : "Error!");
   }
 
   private void initGoogleApiClient() {

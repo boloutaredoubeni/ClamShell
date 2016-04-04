@@ -3,6 +3,9 @@ package com.boloutaredoubeni.clamshell.viewmodels;
 import android.location.Location;
 import android.support.annotation.NonNull;
 
+import com.boloutaredoubeni.clamshell.models.Weather;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,16 +18,33 @@ public class WeatherDashCard {
   public final double latitude;
   public final double longitude;
 
+  private Weather currentWeather;
+  private List<Weather> forecast = new ArrayList<>();
+
   public static WeatherDashCard create(@NonNull Location location) {
     return new WeatherDashCard(location);
   }
 
-  private void bind(Object object) {}
-
-  private void bind(List list) {}
 
   private WeatherDashCard(Location location) {
     latitude = location.getLatitude();
     longitude = location.getLongitude();
+  }
+
+  public void bind(Weather weather) {
+    currentWeather = weather;
+  }
+
+  public void bind(List<Weather> list) {
+    forecast.clear();
+    forecast.addAll(list);
+  }
+
+  public Weather getCurrentWeather() {
+    return currentWeather;
+  }
+
+  public List<Weather> getForecast() {
+    return forecast;
   }
 }

@@ -1,7 +1,7 @@
 package com.boloutaredoubeni.clamshell.apis.owm;
 
-import com.boloutaredoubeni.clamshell.apis.owm.json.CurrentWeather;
-import com.boloutaredoubeni.clamshell.apis.owm.json.Forecast;
+import com.boloutaredoubeni.clamshell.apis.owm.models.CurrentWeather;
+import com.boloutaredoubeni.clamshell.apis.owm.models.Forecast;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

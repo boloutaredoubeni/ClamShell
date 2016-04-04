@@ -1,7 +1,7 @@
 package com.boloutaredoubeni.clamshell.apis.owm;
 
-import com.boloutaredoubeni.clamshell.apis.owm.json.CurrentWeather;
-import com.boloutaredoubeni.clamshell.apis.owm.json.Forecast;
+import com.boloutaredoubeni.clamshell.apis.owm.models.CurrentWeather;
+import com.boloutaredoubeni.clamshell.apis.owm.models.Forecast;
 
 /**
  * Copyright 2016 Boloutare Doubeni

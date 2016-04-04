@@ -15,7 +15,8 @@
         android:theme="@android:style/Theme.Wallpaper.NoTitleBar">
         <activity
             android:name=".activities.AppsViewActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <!-- NOTE: for testing purposes -->

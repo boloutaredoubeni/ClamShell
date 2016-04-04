@@ -1,4 +1,4 @@
-package com.boloutaredoubeni.clamshell.apis.owm.json;
+package com.boloutaredoubeni.clamshell.apis.owm.models;
 
 import com.google.gson.annotations.SerializedName;
 

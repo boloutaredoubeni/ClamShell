@@ -1,4 +1,4 @@
-package com.boloutaredoubeni.clamshell.apis.owm.json;
+package com.boloutaredoubeni.clamshell.apis.owm.models;
 
 /**
  * Copyright 2016 Boloutare Doubeni
@@ -6,5 +6,5 @@ package com.boloutaredoubeni.clamshell.apis.owm.json;
 public class Forecast {
 
   public CityData city;
-  WeatherReport[] list;
+  public WeatherReport[] list;
 }
