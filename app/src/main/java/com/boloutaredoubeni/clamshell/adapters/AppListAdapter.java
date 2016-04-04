@@ -28,7 +28,7 @@ import timber.log.Timber;
 /**
  * Copyright 2016 Boloutare Doubeni
  */
-public final class AppListAdapter
+public class AppListAdapter
     extends RecyclerView.Adapter<AppListAdapter.ViewHolder>
     implements Filterable {
 
@@ -36,8 +36,6 @@ public final class AppListAdapter
   private List<UserApplicationInfo> mApps;
   private Context mContext;
 
-  // Fixme: icons need to be the same size
-  // Todo: databinding
   // TODO: custom scroll bar
   // Fixme: allow seeing app info
   // https://stackoverflow.com/questions/11157102/how-i-can-start-application-info-screen-in-android
@@ -105,7 +103,7 @@ public final class AppListAdapter
     }
   }
 
-  private static final class AppInfoFilter extends Filter {
+  private static class AppInfoFilter extends Filter {
 
     private AppListAdapter mAdapter;
     private final List<UserApplicationInfo> mFilteredList;

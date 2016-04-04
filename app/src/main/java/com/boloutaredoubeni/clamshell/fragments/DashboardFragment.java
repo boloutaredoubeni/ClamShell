@@ -2,7 +2,6 @@ package com.boloutaredoubeni.clamshell.fragments;
 
 import android.app.Fragment;
 import android.database.Cursor;
-import android.databinding.DataBindingUtil;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.boloutaredoubeni.clamshell.R;
 import com.boloutaredoubeni.clamshell.adapters.PhotoCarouselAdapter;
@@ -20,7 +21,6 @@ import com.boloutaredoubeni.clamshell.apis.owm.OpenWeatherMap;
 import com.boloutaredoubeni.clamshell.apis.owm.WeatherService;
 import com.boloutaredoubeni.clamshell.apis.owm.models.CurrentWeather;
 import com.boloutaredoubeni.clamshell.apis.owm.models.Forecast;
-import com.boloutaredoubeni.clamshell.databinding.FragmentDashboardBinding;
 import com.boloutaredoubeni.clamshell.models.UserPhoto;
 import com.boloutaredoubeni.clamshell.models.Weather;
 import com.boloutaredoubeni.clamshell.secret.AppKeys;
@@ -46,16 +46,22 @@ import timber.log.Timber;
 public class DashboardFragment
     extends Fragment implements GoogleApiClient.ConnectionCallbacks,
                                 GoogleApiClient.OnConnectionFailedListener,
-                                OpenWeatherMap.DataReceiver {
+                                OpenWeatherMap.DataReceiver,
+                                WeatherViewModel.OnWeatherChangeListener {
 
   public static final int MAX_NUM_PHOTOS = 10;
 
   private WeatherViewModel mWeatherCard;
   private PhotoCarouselAdapter mAdapter;
-  private FragmentDashboardBinding mWeatherBinding;
 
-  //  @Bind(R.id.weather_data) TextView currentWeather;
   @Bind(R.id.photo_recycler) RecyclerView photoCarousel;
+  @Bind(R.id.city_name) TextView city;
+  @Bind(R.id.current_temp) TextView currentTemp;
+  @Bind(R.id.current_day_of_week) TextView dayOfWeek;
+  @Bind(R.id.current_weather_description) TextView weatherDescription;
+  @Bind(R.id.lo_temp) TextView lowTemperature;
+  @Bind(R.id.hi_temp) TextView highTemperature;
+  @Bind(R.id.current_weather_icon) ImageView icon;
 
   private GoogleApiClient mClient;
 
@@ -71,8 +77,6 @@ public class DashboardFragment
                            Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
     ButterKnife.bind(this, view);
-    mWeatherBinding = DataBindingUtil.setContentView(
-        getActivity(), R.layout.fragment_dashboard);
     setupPhotoCarousel();
     return view;
   }
@@ -102,6 +106,7 @@ public class DashboardFragment
     if (location != null) {
       Timber.d("Got the user location");
       mWeatherCard = WeatherViewModel.create(location);
+      mWeatherCard.setOnWeatherChangeListener(this);
       new GetWeatherTask(this).execute(mWeatherCard);
     }
   }
@@ -130,7 +135,6 @@ public class DashboardFragment
     //    currentWeather.setText(payload.currentWeather != null
     //                               ? payload.currentWeather.toString()
     //                               : "Error!");
-    mWeatherBinding.setWeather(mWeatherCard);
   }
 
   private void initGoogleApiClient() {
@@ -177,6 +181,19 @@ public class DashboardFragment
     photoCarousel.setLayoutManager(llm);
     mAdapter = new PhotoCarouselAdapter(getActivity(), new ArrayList<>());
     photoCarousel.setAdapter(mAdapter);
+    Timber.i("The carousel has been setup");
+  }
+
+  @Override
+  public void WeatherChanged(WeatherViewModel viewmodel) {
+    city.setText(viewmodel.getCity());
+    currentTemp.setText(viewmodel.getCurrentTemp());
+    dayOfWeek.setText(viewmodel.getDay());
+    weatherDescription.setText(viewmodel.getDescription());
+    highTemperature.setText(viewmodel.getHi());
+    lowTemperature.setText(viewmodel.getLo());
+    // icon.setImageURI();
+    Timber.i("The weather has changed");
   }
 
   private static class GetWeatherTask

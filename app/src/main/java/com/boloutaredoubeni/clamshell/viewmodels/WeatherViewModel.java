@@ -1,11 +1,8 @@
 package com.boloutaredoubeni.clamshell.viewmodels;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.location.Location;
 import android.support.annotation.NonNull;
 
-import com.boloutaredoubeni.clamshell.BR;
 import com.boloutaredoubeni.clamshell.apis.owm.models.Forecast;
 import com.boloutaredoubeni.clamshell.models.Weather;
 import com.boloutaredoubeni.clamshell.utils.Day;
@@ -16,10 +13,9 @@ import java.util.List;
 /**
  * Copyright 2016 Boloutare Doubeni
  */
-public class WeatherViewModel extends BaseObservable {
+public class WeatherViewModel {
 
-  // Fixme: bind to view and card using rx-observers
-
+  // FIXME: display correct temperature
   public final double latitude;
   public final double longitude;
 
@@ -33,6 +29,8 @@ public class WeatherViewModel extends BaseObservable {
   private String icon;
   private Day day;
 
+  private OnWeatherChangeListener mListener;
+
   public static WeatherViewModel create(@NonNull Location location) {
     return new WeatherViewModel(location);
   }
@@ -40,6 +38,10 @@ public class WeatherViewModel extends BaseObservable {
   private WeatherViewModel(Location location) {
     latitude = location.getLatitude();
     longitude = location.getLongitude();
+  }
+
+  public void setOnWeatherChangeListener(OnWeatherChangeListener listener) {
+    mListener = listener;
   }
 
   public void bind(Weather weather) {
@@ -51,7 +53,9 @@ public class WeatherViewModel extends BaseObservable {
     currentTemp = weather.getCurrentTemp();
     icon = weather.icon;
     day = weather.day;
-    notifyPropertyChanged(BR._all);
+    if (mListener != null) {
+      mListener.WeatherChanged(this);
+    }
   }
 
   public static List<WeatherViewModel> getCards(Forecast list,
@@ -66,38 +70,21 @@ public class WeatherViewModel extends BaseObservable {
     return cards;
   }
 
-  @Bindable
-  public String getCity() {
-    return city;
-  }
+  public String getCity() { return city; }
 
-  @Bindable
-  public String getCurrentTemp() {
-    return Double.toString(currentTemp);
-  }
+  public String getCurrentTemp() { return Double.toString(currentTemp); }
 
-  @Bindable
-  public String getLo() {
-    return Double.toString(lo);
-  }
+  public String getLo() { return Double.toString(lo); }
 
-  @Bindable
-  public String getHi() {
-    return Double.toString(hi);
-  }
+  public String getHi() { return Double.toString(hi); }
 
-  @Bindable
-  public String getDescription() {
-    return description;
-  }
+  public String getDescription() { return description; }
 
-  @Bindable
-  public String getIcon() {
-    return icon;
-  }
+  public String getIcon() { return icon; }
 
-  @Bindable
-  public String getDay() {
-    return day != null ? day.name() : "Anyday now";
+  public String getDay() { return day != null ? day.name() : "Anyday now"; }
+
+  public interface OnWeatherChangeListener {
+    void WeatherChanged(WeatherViewModel viewmodel);
   }
 }

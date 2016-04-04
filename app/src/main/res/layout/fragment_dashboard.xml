@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <data>
-        <variable
-            name="weather"
-            type="com.boloutaredoubeni.clamshell.viewmodels.WeatherViewModel"/>
-    </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/dashbaord"
@@ -19,40 +13,34 @@
         android:background="#E5DBCF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/city_name"
                 android:textSize="30sp"
-                android:text="@{weather.city}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/current_temp"
-                android:layout_alignParentStart="true"
                 android:textSize="25sp"
-                android:text="@{weather.currentTemp}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/current_day_of_week"
-                android:text="@{weather.day}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/current_weather_description"
-                android:text="@{weather.description}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/hi_temp"
-                android:text="@{weather.hi}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/lo_temp"
-                android:text="@{weather.lo}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <ImageView
@@ -63,7 +51,7 @@
                 android:id="@+id/forecast_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-        </RelativeLayout>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
@@ -82,4 +70,3 @@
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
-    </layout>
