@@ -16,18 +16,12 @@ public class WeatherDashCard {
     return new WeatherDashCard(location);
   }
 
-  private void bind(Object object) {
+  private void bind(Object object) {}
 
-  }
-
-  private void bind(List list) {
-
-  }
+  private void bind(List list) {}
 
   private WeatherDashCard(Location location) {
     latitude = location.getLatitude();
     longitude = location.getLongitude();
   }
-
-
 }

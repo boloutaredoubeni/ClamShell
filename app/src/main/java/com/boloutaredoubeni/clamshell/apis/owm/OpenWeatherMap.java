@@ -1,5 +1,8 @@
 package com.boloutaredoubeni.clamshell.apis.owm;
 
+import com.boloutaredoubeni.clamshell.apis.owm.json.CurrentWeather;
+import com.boloutaredoubeni.clamshell.apis.owm.json.Forecast;
+
 /**
  * Copyright 2016 Boloutare Doubeni
  */
@@ -9,12 +12,10 @@ public class OpenWeatherMap {
 
   private OpenWeatherMap() {}
 
-  public interface DataReceiver {
-    void onDataReceived(Payload payload);
-  }
+  public interface DataReceiver { void onDataReceived(Payload payload); }
 
   public static class Payload {
-    public String currentWeatherJson;
-    public String forecastWeatherJson;
+    public CurrentWeather currentWeather;
+    public Forecast forecast;
   }
 }

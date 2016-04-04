@@ -1,6 +1,8 @@
 package com.boloutaredoubeni.clamshell.apis.owm;
 
-import okhttp3.ResponseBody;
+import com.boloutaredoubeni.clamshell.apis.owm.json.CurrentWeather;
+import com.boloutaredoubeni.clamshell.apis.owm.json.Forecast;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -11,12 +13,12 @@ import retrofit2.http.Query;
 public interface WeatherService {
 
   @GET("/data/2.5/weather")
-  Call<ResponseBody> getCurrentWeather(@Query("lat") double latitude,
-                                       @Query("lon") double longitude,
-                                       @Query("APPID") String key);
+  Call<CurrentWeather> getCurrentWeather(@Query("lat") double latitude,
+                                         @Query("lon") double longitude,
+                                         @Query("APPID") String key);
 
   @GET("/data/2.5/forecast")
-  Call<ResponseBody> getWeeklyForcecast(@Query("lat") double latitude,
-                                        @Query("lon") double longitude,
-                                        @Query("APPID") String key);
+  Call<Forecast> getWeeklyForcecast(@Query("lat") double latitude,
+                                    @Query("lon") double longitude,
+                                    @Query("APPID") String key);
 }

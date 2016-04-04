@@ -16,8 +16,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
-public final class AppsViewActivity
-    extends Activity {
+public final class AppsViewActivity extends Activity {
 
   // FIXME: get location permissions
 
@@ -36,14 +35,11 @@ public final class AppsViewActivity
     setupView();
   }
 
-
   private void setupView() {
     SwipePageAdapter adapter = new SwipePageAdapter(getFragmentManager());
     pager.setAdapter(adapter);
     pager.setCurrentItem(APPLIST_FRAG);
   }
-
-
 
   private final class SwipePageAdapter extends FragmentPagerAdapter {
 
