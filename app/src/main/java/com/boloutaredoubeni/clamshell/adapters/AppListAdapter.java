@@ -93,7 +93,6 @@ public final class AppListAdapter
     return new AppInfoFilter(this);
   }
 
-
   static class ViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.app_icon) ImageView icon;
     @Bind(R.id.app_name) TextView appName;

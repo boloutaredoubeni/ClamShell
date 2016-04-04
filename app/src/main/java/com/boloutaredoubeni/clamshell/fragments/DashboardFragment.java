@@ -46,14 +46,13 @@ public class DashboardFragment
                                 GoogleApiClient.OnConnectionFailedListener,
                                 OpenWeatherMap.DataReceiver {
 
-  private static final int MAX_NUM_PHOTOS = 10;
+  public static final int MAX_NUM_PHOTOS = 10;
 
   private WeatherDashCard mWeatherCard;
   private PhotoCarouselAdapter mAdapter;
 
   @Bind(R.id.weather_data) TextView currentWeather;
-  @Bind(R.id.photo_recycler)
-  RecyclerView photoCarousel;
+  @Bind(R.id.photo_recycler) RecyclerView photoCarousel;
 
   private GoogleApiClient mClient;
 
@@ -110,8 +109,8 @@ public class DashboardFragment
   @Override
   public void onConnectionFailed(ConnectionResult connectionResult) {
     Timber.e("The location connection failed:\t%d\t%s",
-        connectionResult.getErrorCode(),
-        connectionResult.getErrorMessage());
+             connectionResult.getErrorCode(),
+             connectionResult.getErrorMessage());
   }
 
   @Override
@@ -136,8 +135,9 @@ public class DashboardFragment
         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null, null,
         null);
 
-    List<UserPhoto> photos  = new ArrayList<>();
+    List<UserPhoto> photos = new ArrayList<>();
 
+    // FIXME: async please!!
     if (cursor != null) {
       cursor.moveToFirst();
       for (int i = 0; i < MAX_NUM_PHOTOS; ++i) {
@@ -147,13 +147,17 @@ public class DashboardFragment
 
         photos.add(UserPhoto.create(url, name));
       }
+
+      cursor.close();
     }
 
     mAdapter.clearThenAddAll(photos);
   }
 
   private void setupPhotoCarousel() {
-    photoCarousel.setLayoutManager(new LinearLayoutManager(getActivity()));
+    LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+    llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+    photoCarousel.setLayoutManager(llm);
     mAdapter = new PhotoCarouselAdapter(getActivity(), new ArrayList<>());
     photoCarousel.setAdapter(mAdapter);
   }
