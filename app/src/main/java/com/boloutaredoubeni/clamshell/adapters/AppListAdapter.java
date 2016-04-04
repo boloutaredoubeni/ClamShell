@@ -3,6 +3,7 @@ package com.boloutaredoubeni.clamshell.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +72,15 @@ public final class AppListAdapter
       Timber.i("Starting %s", app.getPackage());
       // Todo: save to database!! Content Provider?
       mContext.startActivity(i);
+    });
+    holder.icon.setOnLongClickListener(new View.OnLongClickListener() {
+      @Override
+      public boolean onLongClick(View v) {
+        Intent i = new Intent(Intent.ACTION_DELETE);
+        i.setData(Uri.parse("package:" + app.getPackage()));
+        mContext.startActivity(i);
+        return true;
+      }
     });
   }
 

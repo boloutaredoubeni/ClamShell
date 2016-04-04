@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class WeatherDashCard {
 
+  // Fixme: bind to view and card using rx-observers
+
   public final double latitude;
   public final double longitude;
 
