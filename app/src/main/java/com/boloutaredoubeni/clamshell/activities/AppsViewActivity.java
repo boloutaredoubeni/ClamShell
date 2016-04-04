@@ -11,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import com.boloutaredoubeni.clamshell.R;
 import com.boloutaredoubeni.clamshell.fragments.AppListFragment;
 import com.boloutaredoubeni.clamshell.fragments.DashboardFragment;
-import com.boloutaredoubeni.clamshell.fragments.SettingsFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,9 +23,9 @@ public final class AppsViewActivity extends Activity {
   private static final int DASHBOARD_FRAG = 0;
   private static final int APPLIST_FRAG = 1;
   private static final int SETTINGS_FRAG = 2;
-  private static final int NUM_OF_TABS = 3;
+  private static final int NUM_OF_TABS = 2;
 
-  @Bind(R.id.app_view_container) ViewPager pager;
+   @Bind(R.id.app_view_container) ViewPager pager;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +54,9 @@ public final class AppsViewActivity extends Activity {
       case APPLIST_FRAG:
         Timber.d("Moving to app list");
         return new AppListFragment();
-      case SETTINGS_FRAG:
-        Timber.d("Moving to settings");
-        return new SettingsFragment();
+//      case SETTINGS_FRAG:
+//        Timber.d("Moving to settings");
+//        return new SettingsFragment();
       }
       return null;
     }

@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.boloutaredoubeni.clamshell.R;
-import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
+import com.boloutaredoubeni.clamshell.viewmodels.UserApplicationInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
