@@ -17,6 +17,7 @@ import android.widget.EditText;
 import com.boloutaredoubeni.clamshell.R;
 import com.boloutaredoubeni.clamshell.adapters.AppListAdapter;
 import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
+import com.boloutaredoubeni.clamshell.views.ItemOffsetDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,6 @@ public class AppListFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-
     new GetUserAppsTask().execute();
   }
 
@@ -63,6 +63,7 @@ public class AppListFragment extends Fragment {
     recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(
         new GridLayoutManager(getActivity(), APP_NUM_WIDTH));
+    recyclerView.addItemDecoration(new ItemOffsetDecoration(1));
     List<UserApplicationInfo> apps = new ArrayList<>();
 
     mAdapter = new AppListAdapter(getActivity(), apps);

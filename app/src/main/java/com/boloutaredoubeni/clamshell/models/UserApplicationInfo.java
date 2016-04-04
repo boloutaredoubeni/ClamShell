@@ -24,8 +24,8 @@ public final class UserApplicationInfo
    * @param info Provided by the intent
    * @return An object with information about a launchable application
    */
-  public static UserApplicationInfo createFrom(Context context,
-                                               ResolveInfo info) {
+  public static UserApplicationInfo createFrom(@NonNull Context context,
+                                               @NonNull ResolveInfo info) {
     PackageManager pm = context.getPackageManager();
     Drawable icon = info.activityInfo.loadIcon(pm);
     String appName = info.activityInfo.loadLabel(pm).toString();
@@ -33,8 +33,8 @@ public final class UserApplicationInfo
     return new UserApplicationInfo(icon, appName, packageName);
   }
 
-  private UserApplicationInfo(Drawable icon, String appName,
-                              String packageName) {
+  private UserApplicationInfo(@NonNull Drawable icon, @NonNull String appName,
+                              @NonNull String packageName) {
     mIcon = icon;
     mAppName = appName;
     mPackage = packageName;

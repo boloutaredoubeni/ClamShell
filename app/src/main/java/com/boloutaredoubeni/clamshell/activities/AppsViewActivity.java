@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
@@ -43,7 +44,7 @@ public final class AppsViewActivity extends Activity {
 
   private final class SwipePageAdapter extends FragmentPagerAdapter {
 
-    public SwipePageAdapter(FragmentManager fm) { super(fm); }
+    public SwipePageAdapter(@NonNull FragmentManager fm) { super(fm); }
 
     @Override
     public Fragment getItem(int position) {

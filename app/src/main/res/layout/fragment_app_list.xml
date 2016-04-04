@@ -16,7 +16,6 @@
         <EditText
             android:id="@+id/search_edit_text"
             android:hint="Search"
-            android:focusable="false"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:inputType="textAutoComplete|textAutoCorrect"

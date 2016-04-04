@@ -1,6 +1,7 @@
 package com.boloutaredoubeni.clamshell.viewmodels;
 
 import android.location.Location;
+import android.support.annotation.NonNull;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class WeatherDashCard {
   public final double latitude;
   public final double longitude;
 
-  public static WeatherDashCard create(Location location) {
+  public static WeatherDashCard create(@NonNull Location location) {
     return new WeatherDashCard(location);
   }
 

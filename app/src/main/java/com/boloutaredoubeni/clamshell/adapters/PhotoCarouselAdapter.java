@@ -31,7 +31,7 @@ public class PhotoCarouselAdapter
   private Context mContext;
   private List<UserPhoto> mPhotos;
 
-  public PhotoCarouselAdapter(Context context,
+  public PhotoCarouselAdapter(@NonNull Context context,
                               @NonNull List<UserPhoto> photos) {
     mContext = context;
     mPhotos = photos;
@@ -73,7 +73,7 @@ public class PhotoCarouselAdapter
 
     @Bind(R.id.user_photo) ImageView userPhoto;
 
-    public ViewHolder(View itemView) {
+    public ViewHolder(@NonNull View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
     }

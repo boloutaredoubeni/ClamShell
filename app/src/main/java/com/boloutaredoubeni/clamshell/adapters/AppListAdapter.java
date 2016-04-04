@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,8 @@ public final class AppListAdapter
   // Fixme: allow seeing app info
   // https://stackoverflow.com/questions/11157102/how-i-can-start-application-info-screen-in-android
 
-  public AppListAdapter(Context context, List<UserApplicationInfo> apps) {
+  public AppListAdapter(@NonNull Context context,
+                        @NonNull List<UserApplicationInfo> apps) {
     mApps = apps;
     mOriginalApps = apps;
     mContext = context;
@@ -54,7 +56,7 @@ public final class AppListAdapter
     return new ViewHolder(itemView);
   }
 
-  public void clearThenAddAll(List<UserApplicationInfo> apps) {
+  public void clearThenAddAll(@NonNull List<UserApplicationInfo> apps) {
     Collections.sort(apps);
     mApps.clear();
     mOriginalApps.clear();
@@ -97,7 +99,7 @@ public final class AppListAdapter
     @Bind(R.id.app_icon) ImageView icon;
     @Bind(R.id.app_name) TextView appName;
 
-    public ViewHolder(View itemView) {
+    public ViewHolder(@NonNull View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
     }
@@ -108,7 +110,7 @@ public final class AppListAdapter
     private AppListAdapter mAdapter;
     private final List<UserApplicationInfo> mFilteredList;
 
-    private AppInfoFilter(AppListAdapter adapter) {
+    private AppInfoFilter(@NonNull AppListAdapter adapter) {
       super();
       mAdapter = adapter;
       mFilteredList = new ArrayList<>();
