@@ -20,7 +20,7 @@ public class WeatherViewModel {
   public final double longitude;
 
   private String city;
-  private int currentTemp;
+  private Integer currentTemp;
 
   private Weather currentWeather;
   private int lo;
@@ -48,13 +48,15 @@ public class WeatherViewModel {
     currentWeather = weather;
     city = weather.city;
     lo = Weather.convertToFahrenheit(weather.lo);
-    hi =  Weather.convertToFahrenheit(weather.hi);
+    hi = Weather.convertToFahrenheit(weather.hi);
     description = weather.description;
-    currentTemp =  Weather.convertToFahrenheit(weather.getCurrentTemp());
+    currentTemp = weather.getCurrentTemp() != null
+                      ? Weather.convertToFahrenheit(weather.getCurrentTemp())
+                      : null;
     icon = weather.icon;
     day = weather.day;
     if (mListener != null) {
-      mListener.WeatherChanged(this);
+      mListener.weatherChanged(this);
     }
   }
 
@@ -85,6 +87,7 @@ public class WeatherViewModel {
   public String getDay() { return day != null ? day.name() : "Anyday now"; }
 
   public interface OnWeatherChangeListener {
-    void WeatherChanged(WeatherViewModel viewmodel);
+    void weatherChanged(WeatherViewModel viewmodel);
+    void forecastChanged(List<WeatherViewModel> viewModels);
   }
 }

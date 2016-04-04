@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.boloutaredoubeni.clamshell.R;
+import com.boloutaredoubeni.clamshell.adapters.ForecastAdapter;
 import com.boloutaredoubeni.clamshell.adapters.PhotoCarouselAdapter;
 import com.boloutaredoubeni.clamshell.apis.owm.OpenWeatherMap;
 import com.boloutaredoubeni.clamshell.apis.owm.WeatherService;
@@ -52,8 +53,12 @@ public class DashboardFragment
   public static final int MAX_NUM_PHOTOS = 10;
 
   private WeatherViewModel mWeatherCard;
-  private PhotoCarouselAdapter mAdapter;
+  private PhotoCarouselAdapter mPhotoAdapter;
+  private GoogleApiClient mClient;
+  private ForecastAdapter mForecastAdapter;
+  private Location mLocation;
 
+  @Bind(R.id.forecast_list) RecyclerView forecastRecycler;
   @Bind(R.id.photo_recycler) RecyclerView photoCarousel;
   @Bind(R.id.city_name) TextView city;
   @Bind(R.id.current_temp) TextView currentTemp;
@@ -62,8 +67,6 @@ public class DashboardFragment
   @Bind(R.id.lo_temp) TextView lowTemperature;
   @Bind(R.id.hi_temp) TextView highTemperature;
   @Bind(R.id.current_weather_icon) ImageView icon;
-
-  private GoogleApiClient mClient;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,7 @@ public class DashboardFragment
     View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
     ButterKnife.bind(this, view);
     setupPhotoCarousel();
+    setupWeatherView();
     return view;
   }
 
@@ -101,11 +105,10 @@ public class DashboardFragment
 
   @Override
   public void onConnected(Bundle bundle) {
-    Location location =
-        LocationServices.FusedLocationApi.getLastLocation(mClient);
-    if (location != null) {
+    mLocation = LocationServices.FusedLocationApi.getLastLocation(mClient);
+    if (mLocation != null) {
       Timber.d("Got the user location");
-      mWeatherCard = WeatherViewModel.create(location);
+      mWeatherCard = WeatherViewModel.create(mLocation);
       mWeatherCard.setOnWeatherChangeListener(this);
       new GetWeatherTask(this).execute(mWeatherCard);
     }
@@ -119,8 +122,8 @@ public class DashboardFragment
   @Override
   public void onConnectionFailed(ConnectionResult connectionResult) {
     Timber.e("The location connection failed:\t%d\t%s",
-             connectionResult.getErrorCode(),
-             connectionResult.getErrorMessage());
+        connectionResult.getErrorCode(),
+        connectionResult.getErrorMessage());
   }
 
   @Override
@@ -135,6 +138,9 @@ public class DashboardFragment
     //    currentWeather.setText(payload.currentWeather != null
     //                               ? payload.currentWeather.toString()
     //                               : "Error!");
+    List<WeatherViewModel> models =
+        WeatherViewModel.getCards(payload.forecast, mLocation);
+    mForecastAdapter.clearAndAddAll(models);
   }
 
   private void initGoogleApiClient() {
@@ -172,20 +178,29 @@ public class DashboardFragment
       cursor.close();
     }
 
-    mAdapter.clearThenAddAll(photos);
+    mPhotoAdapter.clearThenAddAll(photos);
   }
 
   private void setupPhotoCarousel() {
     LinearLayoutManager llm = new LinearLayoutManager(getActivity());
     llm.setOrientation(LinearLayoutManager.HORIZONTAL);
     photoCarousel.setLayoutManager(llm);
-    mAdapter = new PhotoCarouselAdapter(getActivity(), new ArrayList<>());
-    photoCarousel.setAdapter(mAdapter);
+    mPhotoAdapter = new PhotoCarouselAdapter(getActivity(), new ArrayList<>());
+    photoCarousel.setAdapter(mPhotoAdapter);
     Timber.i("The carousel has been setup");
   }
 
+  private void setupWeatherView() {
+    LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+    llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+    forecastRecycler.setLayoutManager(llm);
+    mForecastAdapter = new ForecastAdapter(new ArrayList<>());
+    forecastRecycler.setAdapter(mForecastAdapter);
+    Timber.i("Got the forecast");
+  }
+
   @Override
-  public void WeatherChanged(WeatherViewModel viewmodel) {
+  public void weatherChanged(WeatherViewModel viewmodel) {
     city.setText(viewmodel.getCity());
     currentTemp.setText(viewmodel.getCurrentTemp());
     dayOfWeek.setText(viewmodel.getDay());
@@ -194,6 +209,13 @@ public class DashboardFragment
     lowTemperature.setText(viewmodel.getLo());
     // icon.setImageURI();
     Timber.i("The weather has changed");
+  }
+
+
+
+  @Override
+  public void forecastChanged(List<WeatherViewModel> viewModels) {
+    Timber.e("forecastChanged Not implemented!!");
   }
 
   private static class GetWeatherTask

@@ -23,7 +23,6 @@ public class Weather {
   public final Day day;
   public final String icon;
 
-
   public static Weather createFrom(@NonNull CurrentWeather current) {
     return new Weather(current.name, current.main.temp, current.main.temp_min,
                        current.main.temp_max, current.weather[0].main,
@@ -48,7 +47,7 @@ public class Weather {
   }
 
   public static int convertToFahrenheit(double kelvin) {
-    return (int) (1.8 * (kelvin - 273) + 32);
+    return (int)(1.8 * (kelvin - 273) + 32);
   }
 
   private Weather(String city, Double currentTemp, double lo, double hi,
