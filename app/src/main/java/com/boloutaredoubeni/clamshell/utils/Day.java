@@ -15,6 +15,7 @@ public enum Day {
   Friday,
   Saturday;
 
+  // FIXME This is so wrong its not even funny, the question is who is to blame
   public static Day convertFromUnixMill(long unix) {
     Calendar calendar = Calendar.getInstance();
     calendar.setTimeInMillis(unix);

@@ -15,16 +15,16 @@ import java.util.List;
  */
 public class WeatherViewModel {
 
-  // FIXME: display correct temperature
+  // FIXME: display correct formatting
   public final double latitude;
   public final double longitude;
 
   private String city;
-  private double currentTemp;
+  private int currentTemp;
 
   private Weather currentWeather;
-  private double lo;
-  private double hi;
+  private int lo;
+  private int hi;
   private String description;
   private String icon;
   private Day day;
@@ -47,10 +47,10 @@ public class WeatherViewModel {
   public void bind(Weather weather) {
     currentWeather = weather;
     city = weather.city;
-    lo = weather.lo;
-    hi = weather.hi;
+    lo = Weather.convertToFahrenheit(weather.lo);
+    hi =  Weather.convertToFahrenheit(weather.hi);
     description = weather.description;
-    currentTemp = weather.getCurrentTemp();
+    currentTemp =  Weather.convertToFahrenheit(weather.getCurrentTemp());
     icon = weather.icon;
     day = weather.day;
     if (mListener != null) {
@@ -72,11 +72,11 @@ public class WeatherViewModel {
 
   public String getCity() { return city; }
 
-  public String getCurrentTemp() { return Double.toString(currentTemp); }
+  public String getCurrentTemp() { return Integer.toString(currentTemp); }
 
-  public String getLo() { return Double.toString(lo); }
+  public String getLo() { return Integer.toString(lo); }
 
-  public String getHi() { return Double.toString(hi); }
+  public String getHi() { return Integer.toString(hi); }
 
   public String getDescription() { return description; }
 
