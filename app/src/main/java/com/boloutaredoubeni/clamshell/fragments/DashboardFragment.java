@@ -23,6 +23,7 @@ import com.google.android.gms.location.LocationServices;
 
 import java.io.IOException;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -41,6 +42,7 @@ public class DashboardFragment
 
   private WeatherDashCard mWeatherCard;
 
+  @Bind(R.id.weather_data)
   TextView currentWeather;
 
   private GoogleApiClient mClient;
@@ -55,8 +57,7 @@ public class DashboardFragment
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_dummy, container, false);
-    currentWeather = (TextView)view.findViewById(R.id.weather_data);
+    View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
     ButterKnife.bind(this, view);
     return view;
   }
@@ -110,7 +111,7 @@ public class DashboardFragment
   @Override
   public void onDataReceived(OpenWeatherMap.Payload payload) {
     Timber.d("Received payload");
-//    currentWeather.setText(payload.currentWeather.toString());
+    currentWeather.setText(payload.currentWeather.toString());
   }
 
   private static class GetWeatherTask
