@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.boloutaredoubeni.clamshell.R;
-import com.boloutaredoubeni.clamshell.fragments.DashboardFragment;
 import com.boloutaredoubeni.clamshell.models.UserPhoto;
 
 import java.util.List;
@@ -50,6 +49,7 @@ public class PhotoCarouselAdapter
     final UserPhoto photo = mPhotos.get(position);
     holder.userPhoto.setImageURI(Uri.parse(photo.url));
     holder.userPhoto.setOnClickListener(v -> {
+      // TODO: this needs to open in a gallery
       Intent i = new Intent();
       i.setAction(Intent.ACTION_VIEW);
       i.setDataAndType(Uri.parse("file://" + photo.url), "image/*");
@@ -60,7 +60,7 @@ public class PhotoCarouselAdapter
 
   @Override
   public int getItemCount() {
-    return DashboardFragment.MAX_NUM_PHOTOS;
+    return mPhotos.size();
   }
 
   public void clearThenAddAll(List<UserPhoto> newPhotos) {

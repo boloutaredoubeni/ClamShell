@@ -109,14 +109,18 @@ public class DashboardFragment
   @Override
   public void onConnectionFailed(ConnectionResult connectionResult) {
     Timber.e("The location connection failed:\t%d\t%s",
-             connectionResult.getErrorCode(),
-             connectionResult.getErrorMessage());
+        connectionResult.getErrorCode(),
+        connectionResult.getErrorMessage());
   }
 
   @Override
   public void onDataReceived(OpenWeatherMap.Payload payload) {
+    // FIXME: error handle
     Timber.d("Received payload");
-    currentWeather.setText(payload.currentWeather.toString());
+    if (payload == null) {
+      return;
+    }
+    currentWeather.setText(payload.currentWeather != null ? payload.currentWeather.toString() : "Error!");
   }
 
   private void initGoogleApiClient() {
@@ -138,9 +142,12 @@ public class DashboardFragment
     List<UserPhoto> photos = new ArrayList<>();
 
     // FIXME: async please!!
-    if (cursor != null) {
+    if (cursor != null &&  cursor.getCount() > 0) {
       cursor.moveToFirst();
       for (int i = 0; i < MAX_NUM_PHOTOS; ++i) {
+        if (i ==  cursor.getCount()) {
+          break;
+        }
         cursor.moveToPosition(i);
         String url = cursor.getString(UserPhoto.COL_URL);
         String name = cursor.getString(UserPhoto.COL_NAME);
@@ -197,6 +204,9 @@ public class DashboardFragment
         payload.currentWeather = currentWeatherResponse.body();
         retrofit2.Response<Forecast> forecastResponse = forecastCall.execute();
         payload.forecast = forecastResponse.body();
+        if (payload.forecast == null || payload.currentWeather == null) {
+          Timber.e("There is either no internet or the server did not respond properly");
+        }
         return payload;
       } catch (IOException e) {
         Timber.e(e.getMessage());
