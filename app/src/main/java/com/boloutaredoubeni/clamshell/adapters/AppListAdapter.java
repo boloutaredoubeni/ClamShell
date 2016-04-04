@@ -38,6 +38,8 @@ public final class AppListAdapter
   // Fixme: icons need to be the same size
   // Todo: databinding
   // TODO: custom scroll bar
+  // Fixme: allow seeing app info
+  // https://stackoverflow.com/questions/11157102/how-i-can-start-application-info-screen-in-android
 
   public AppListAdapter(Context context, List<UserApplicationInfo> apps) {
     mApps = apps;
@@ -73,14 +75,11 @@ public final class AppListAdapter
       // Todo: save to database!! Content Provider?
       mContext.startActivity(i);
     });
-    holder.icon.setOnLongClickListener(new View.OnLongClickListener() {
-      @Override
-      public boolean onLongClick(View v) {
-        Intent i = new Intent(Intent.ACTION_DELETE);
-        i.setData(Uri.parse("package:" + app.getPackage()));
-        mContext.startActivity(i);
-        return true;
-      }
+    holder.icon.setOnLongClickListener(v -> {
+      Intent i = new Intent(Intent.ACTION_DELETE);
+      i.setData(Uri.parse("package:" + app.getPackage()));
+      mContext.startActivity(i);
+      return true;
     });
   }
 
@@ -94,7 +93,8 @@ public final class AppListAdapter
     return new AppInfoFilter(this);
   }
 
-  public static class ViewHolder extends RecyclerView.ViewHolder {
+
+  static class ViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.app_icon) ImageView icon;
     @Bind(R.id.app_name) TextView appName;
 

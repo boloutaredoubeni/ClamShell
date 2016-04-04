@@ -72,6 +72,7 @@ public class AppListFragment extends Fragment {
   @OnTextChanged(R.id.search_edit_text)
   void executeSearch(CharSequence query) {
     mAdapter.getFilter().filter(query.toString());
+
   }
 
   /**
