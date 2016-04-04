@@ -16,7 +16,3 @@
 #   public *;
 #}
 -dontwarn com.squareup.okhttp.**
--keepattributes *Annotation*
--keepattributes Signature
--keepattributes InnerClasses
--keepattributes InnerClasses,EnclosingMethod
