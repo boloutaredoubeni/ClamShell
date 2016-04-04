@@ -1,6 +1,7 @@
 package com.boloutaredoubeni.clamshell.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -46,8 +47,15 @@ public class PhotoCarouselAdapter
 
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
-    holder.userPhoto.setImageURI(Uri.parse(mPhotos.get(position).url));
-    holder.userPhoto.setOnClickListener(v -> { Timber.d("Clicked on photo"); });
+    final UserPhoto photo = mPhotos.get(position);
+    holder.userPhoto.setImageURI(Uri.parse(photo.url));
+    holder.userPhoto.setOnClickListener(v -> {
+      Intent i = new Intent();
+      i.setAction(Intent.ACTION_VIEW);
+      i.setDataAndType(Uri.parse("file://" + photo.url), "image/*");
+      Timber.d("Clicked on photo");
+      mContext.startActivity(i);
+    });
   }
 
   @Override
