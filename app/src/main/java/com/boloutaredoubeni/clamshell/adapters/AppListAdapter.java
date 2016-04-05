@@ -3,7 +3,6 @@ package com.boloutaredoubeni.clamshell.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.boloutaredoubeni.clamshell.R;
-import com.boloutaredoubeni.clamshell.apis.realm.RealmHelper;
 import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
 
 import java.util.ArrayList;
@@ -73,14 +71,17 @@ public class AppListAdapter
       PackageManager pm = mContext.getPackageManager();
       Intent i = pm.getLaunchIntentForPackage(app.getPackage());
       Timber.i("Starting %s", app.getPackage());
-      // Todo: save to database!! Content Provider?
-      RealmHelper.getInstance(mContext).cache(app);
       mContext.startActivity(i);
     });
     holder.icon.setOnLongClickListener(v -> {
-      Intent i = new Intent(Intent.ACTION_DELETE);
-      i.setData(Uri.parse("package:" + app.getPackage()));
-      mContext.startActivity(i);
+
+      AppActionListener listener;
+      try {
+        listener = (AppActionListener)mContext;
+        listener.onAppAction(app);
+      } catch (ClassCastException e) {
+        Timber.e("The context is not an AppActionListener: %s", e.getMessage());
+      }
       return true;
     });
   }
@@ -150,5 +151,9 @@ public class AppListAdapter
       }
       mAdapter.notifyDataSetChanged();
     }
+  }
+
+  public interface AppActionListener {
+    void onAppAction(UserApplicationInfo app);
   }
 }

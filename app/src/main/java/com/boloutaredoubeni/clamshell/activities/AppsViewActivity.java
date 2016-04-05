@@ -3,21 +3,25 @@ package com.boloutaredoubeni.clamshell.activities;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.boloutaredoubeni.clamshell.R;
+import com.boloutaredoubeni.clamshell.adapters.AppListAdapter;
 import com.boloutaredoubeni.clamshell.fragments.AppListFragment;
 import com.boloutaredoubeni.clamshell.fragments.DashboardFragment;
 import com.boloutaredoubeni.clamshell.fragments.SettingsFragment;
+import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
-public final class AppsViewActivity extends Activity {
+public final class AppsViewActivity extends Activity implements AppListAdapter.AppActionListener {
 
   // FIXME: get location permissions
 
@@ -40,6 +44,15 @@ public final class AppsViewActivity extends Activity {
     SwipePageAdapter adapter = new SwipePageAdapter(getFragmentManager());
     pager.setAdapter(adapter);
     pager.setCurrentItem(APPLIST_FRAG);
+  }
+
+  @Override
+  public void onAppAction(UserApplicationInfo app) {
+    Intent i = new Intent(Intent.ACTION_DELETE);
+    i.setData(Uri.parse("package:" + app.getPackage()));
+    startActivity(i);
+
+    // TODO: show snackbar
   }
 
   private final class SwipePageAdapter extends FragmentPagerAdapter {
