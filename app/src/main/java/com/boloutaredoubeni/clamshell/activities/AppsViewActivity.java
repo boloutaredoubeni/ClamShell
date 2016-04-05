@@ -33,6 +33,8 @@ public final class AppsViewActivity
   private static final int SETTINGS_FRAG = 2;
   private static final int NUM_OF_TABS = 3;
 
+
+
   @Bind(R.id.app_view_container) ViewPager pager;
 
   @Override
@@ -71,6 +73,7 @@ public final class AppsViewActivity
         .setCancelable(true)
         .show();
   }
+
 
   private final class SwipePageAdapter extends FragmentPagerAdapter {
 
