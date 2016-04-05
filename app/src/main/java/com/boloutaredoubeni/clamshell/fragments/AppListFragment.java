@@ -16,7 +16,7 @@ import android.widget.EditText;
 
 import com.boloutaredoubeni.clamshell.R;
 import com.boloutaredoubeni.clamshell.adapters.AppListAdapter;
-import com.boloutaredoubeni.clamshell.viewmodels.UserApplicationInfo;
+import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
 import com.boloutaredoubeni.clamshell.views.ItemOffsetDecoration;
 
 import java.util.ArrayList;
@@ -32,7 +32,6 @@ import timber.log.Timber;
  */
 public class AppListFragment extends Fragment {
 
-  // FIXME dont auto open softkeyboard
 
   private static final int APP_NUM_WIDTH = 4;
 

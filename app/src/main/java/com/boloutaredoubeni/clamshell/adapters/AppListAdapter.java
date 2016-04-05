@@ -15,7 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.boloutaredoubeni.clamshell.R;
-import com.boloutaredoubeni.clamshell.viewmodels.UserApplicationInfo;
+import com.boloutaredoubeni.clamshell.apis.realm.RealmHelper;
+import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -73,6 +74,7 @@ public class AppListAdapter
       Intent i = pm.getLaunchIntentForPackage(app.getPackage());
       Timber.i("Starting %s", app.getPackage());
       // Todo: save to database!! Content Provider?
+      RealmHelper.getInstance(mContext).cache(app);
       mContext.startActivity(i);
     });
     holder.icon.setOnLongClickListener(v -> {

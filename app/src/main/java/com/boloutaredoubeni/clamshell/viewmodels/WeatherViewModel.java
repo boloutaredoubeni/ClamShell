@@ -15,7 +15,8 @@ import java.util.List;
  */
 public class WeatherViewModel {
 
-  // FIXME: display correct formatting
+  private final String DEGREES = "°F";
+
   public final double latitude;
   public final double longitude;
 
@@ -74,11 +75,11 @@ public class WeatherViewModel {
 
   public String getCity() { return city; }
 
-  public String getCurrentTemp() { return Integer.toString(currentTemp); }
+  public String getCurrentTemp() { return Integer.toString(currentTemp) + DEGREES; }
 
-  public String getLo() { return Integer.toString(lo); }
+  public String getLo() { return Integer.toString(lo) + DEGREES; }
 
-  public String getHi() { return Integer.toString(hi); }
+  public String getHi() { return Integer.toString(hi) + DEGREES; }
 
   public String getDescription() { return description; }
 

@@ -1,4 +1,4 @@
-package com.boloutaredoubeni.clamshell.viewmodels;
+package com.boloutaredoubeni.clamshell.models;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
