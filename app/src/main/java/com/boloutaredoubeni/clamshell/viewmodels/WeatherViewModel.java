@@ -75,7 +75,9 @@ public class WeatherViewModel {
 
   public String getCity() { return city; }
 
-  public String getCurrentTemp() { return Integer.toString(currentTemp) + DEGREES; }
+  public String getCurrentTemp() {
+    return Integer.toString(currentTemp) + DEGREES;
+  }
 
   public String getLo() { return Integer.toString(lo) + DEGREES; }
 

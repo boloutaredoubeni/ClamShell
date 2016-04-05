@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -74,7 +76,8 @@ public class AppListAdapter
       mContext.startActivity(i);
     });
     holder.icon.setOnLongClickListener(v -> {
-
+      Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
+      v.startAnimation(shake);
       AppActionListener listener;
       try {
         listener = (AppActionListener)mContext;

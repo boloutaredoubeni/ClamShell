@@ -30,7 +30,8 @@ public class ForecastAdapter
 
   @Override
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.weather_item, parent, false);
+    View itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.weather_item, parent, false);
     return new ViewHolder(itemView);
   }
 
@@ -55,7 +56,6 @@ public class ForecastAdapter
     notifyDataSetChanged();
   }
 
-
   @Override
   public void weatherChanged(WeatherViewModel viewmodel) {
     Timber.e("Not implemented");
@@ -65,7 +65,6 @@ public class ForecastAdapter
   public void forecastChanged(List<WeatherViewModel> viewModels) {
     clearAndAddAll(viewModels);
   }
-
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.forecast_city_name) TextView city;

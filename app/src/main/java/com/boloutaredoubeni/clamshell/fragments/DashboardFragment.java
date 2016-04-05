@@ -122,8 +122,8 @@ public class DashboardFragment
   @Override
   public void onConnectionFailed(ConnectionResult connectionResult) {
     Timber.e("The location connection failed:\t%d\t%s",
-        connectionResult.getErrorCode(),
-        connectionResult.getErrorMessage());
+             connectionResult.getErrorCode(),
+             connectionResult.getErrorMessage());
   }
 
   @Override
@@ -210,8 +210,6 @@ public class DashboardFragment
     // icon.setImageURI();
     Timber.i("The weather has changed");
   }
-
-
 
   @Override
   public void forecastChanged(List<WeatherViewModel> viewModels) {

@@ -1,11 +1,13 @@
 package com.boloutaredoubeni.clamshell.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -21,7 +23,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
-public final class AppsViewActivity extends Activity implements AppListAdapter.AppActionListener {
+public final class AppsViewActivity
+    extends Activity implements AppListAdapter.AppActionListener {
 
   // FIXME: get location permissions
 
@@ -47,12 +50,26 @@ public final class AppsViewActivity extends Activity implements AppListAdapter.A
   }
 
   @Override
-  public void onAppAction(UserApplicationInfo app) {
-    Intent i = new Intent(Intent.ACTION_DELETE);
-    i.setData(Uri.parse("package:" + app.getPackage()));
-    startActivity(i);
+  public void onAppAction(final UserApplicationInfo app) {
 
-    // TODO: show snackbar
+    new AlertDialog.Builder(this)
+        .setPositiveButton(
+            "Show info",
+            (dialog, which) -> {
+              Intent i = new Intent();
+              i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+              i.setData(Uri.parse("package:" + app.getPackage()));
+              startActivity(i);
+            })
+        .setNegativeButton("Uninstall",
+                           (dialog, which) -> {
+                             Intent i = new Intent(Intent.ACTION_DELETE);
+                             i.setData(
+                                 Uri.parse("package:" + app.getPackage()));
+                             startActivity(i);
+                           })
+        .setCancelable(true)
+        .show();
   }
 
   private final class SwipePageAdapter extends FragmentPagerAdapter {

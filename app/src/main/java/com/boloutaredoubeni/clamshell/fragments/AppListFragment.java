@@ -32,7 +32,6 @@ import timber.log.Timber;
  */
 public class AppListFragment extends Fragment {
 
-
   private static final int APP_NUM_WIDTH = 4;
 
   @Bind(R.id.app_list) RecyclerView recyclerView;

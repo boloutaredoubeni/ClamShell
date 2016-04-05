@@ -13,4 +13,5 @@
        android:id="@+id/app_view_container"
        android:layout_width="match_parent"
        android:layout_height="match_parent"/>
+
 </LinearLayout>
