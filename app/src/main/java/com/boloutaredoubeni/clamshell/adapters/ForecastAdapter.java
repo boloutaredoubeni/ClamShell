@@ -39,7 +39,7 @@ public class ForecastAdapter
   public void onBindViewHolder(ViewHolder holder, int position) {
     final WeatherViewModel model = mForecast.get(position);
     holder.city.setText(model.getCity());
-    holder.day.setText(model.getDay());
+//    holder.day.setText(model.getDay());
     holder.description.setText(model.getDescription());
     holder.hi.setText(model.getHi());
     holder.lo.setText(model.getLo());

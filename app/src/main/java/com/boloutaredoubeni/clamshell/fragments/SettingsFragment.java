@@ -42,7 +42,7 @@ public class SettingsFragment extends Fragment {
 
   @OnLongClick(R.id.dummy_layout) boolean pickWallpaper(View v) {
     Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-    startActivityForResult(i, SELECT_WALLPAPER);
+    getActivity().startActivityForResult(i, SELECT_WALLPAPER);
     return true;
   }
 

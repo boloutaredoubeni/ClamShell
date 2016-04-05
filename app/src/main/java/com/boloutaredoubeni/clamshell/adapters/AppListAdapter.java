@@ -111,25 +111,27 @@ public class AppListAdapter
 
   private static class AppInfoFilter extends Filter {
 
+
     private AppListAdapter mAdapter;
-    private final List<UserApplicationInfo> mFilteredList;
+//    private final List<UserApplicationInfo> mFilteredList;
 
     private AppInfoFilter(@NonNull AppListAdapter adapter) {
       super();
       mAdapter = adapter;
-      mFilteredList = new ArrayList<>();
+//      mFilteredList = new ArrayList<>();
     }
 
     // FIXME: this isnt working properly
     @Override
     protected FilterResults performFiltering(CharSequence constraint) {
-      mFilteredList.clear();
-      final FilterResults results = new FilterResults();
+      List<UserApplicationInfo> mFilteredList = new ArrayList<>();
+//      mFilteredList.clear();
+       FilterResults results = new FilterResults();
       if (constraint == null || constraint.length() == 0) {
         mFilteredList.addAll(mAdapter.mOriginalApps);
       } else {
         final String filterPattern = constraint.toString().toLowerCase();
-
+        mFilteredList.clear();
         // TODO: refine me
         for (UserApplicationInfo app : mAdapter.mOriginalApps) {
           if (app.getAppName().contains(filterPattern)) {
@@ -146,11 +148,10 @@ public class AppListAdapter
     @Override
     protected void publishResults(CharSequence constraint,
                                   FilterResults results) {
-      mAdapter.mApps.clear();
-      if (mFilteredList.size() > 0) {
-        mAdapter.mApps.addAll(mFilteredList);
-      } else {
-        mAdapter.mApps.addAll(mAdapter.mOriginalApps);
+
+      if (results.count > 0) {
+        mAdapter.mApps.clear();
+        mAdapter.mApps.addAll((ArrayList<UserApplicationInfo>)results.values);
       }
       mAdapter.notifyDataSetChanged();
     }

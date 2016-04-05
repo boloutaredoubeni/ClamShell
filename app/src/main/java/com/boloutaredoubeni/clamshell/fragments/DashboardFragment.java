@@ -203,10 +203,10 @@ public class DashboardFragment
   public void weatherChanged(WeatherViewModel viewmodel) {
     city.setText(viewmodel.getCity());
     currentTemp.setText(viewmodel.getCurrentTemp());
-    dayOfWeek.setText(viewmodel.getDay());
+//    dayOfWeek.setText(viewmodel.getDay());
     weatherDescription.setText(viewmodel.getDescription());
-    highTemperature.setText(viewmodel.getHi());
-    lowTemperature.setText(viewmodel.getLo());
+//    highTemperature.setText(viewmodel.getHi());
+//    lowTemperature.setText(viewmodel.getLo());
     // icon.setImageURI();
     Timber.i("The weather has changed");
   }

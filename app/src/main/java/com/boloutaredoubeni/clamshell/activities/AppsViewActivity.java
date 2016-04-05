@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.WallpaperManager;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -18,6 +21,8 @@ import com.boloutaredoubeni.clamshell.fragments.AppListFragment;
 import com.boloutaredoubeni.clamshell.fragments.DashboardFragment;
 import com.boloutaredoubeni.clamshell.fragments.SettingsFragment;
 import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
+
+import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -72,6 +77,29 @@ public final class AppsViewActivity
                            })
         .setCancelable(true)
         .show();
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    switch (requestCode) {
+      case SettingsFragment.SELECT_WALLPAPER: {
+        if (resultCode == Activity.RESULT_OK) {
+          Uri imageUri = data.getData();
+          changeWallpaper(imageUri);
+        }
+        break;
+      }
+    }
+  }
+
+  private void changeWallpaper(Uri imgSrc) {
+    try {
+      Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgSrc);
+      WallpaperManager.getInstance(this).setBitmap(bitmap);
+    } catch (IOException e) {
+      Timber.e(e.getMessage());
+    }
   }
 
 
