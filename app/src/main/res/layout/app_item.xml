@@ -19,7 +19,6 @@
         android:layout_centerHorizontal="true"
         android:text="app name"
         android:gravity="center"
-        android:textColor="#F0EAD6"
         android:scrollHorizontally="true"
         android:ellipsize="end"
         android:maxLines="1"

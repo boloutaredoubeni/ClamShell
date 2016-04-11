@@ -62,7 +62,6 @@ public class DashboardFragment
   @Bind(R.id.photo_recycler) RecyclerView photoCarousel;
   @Bind(R.id.city_name) TextView city;
   @Bind(R.id.current_temp) TextView currentTemp;
-  @Bind(R.id.current_day_of_week) TextView dayOfWeek;
   @Bind(R.id.current_weather_description) TextView weatherDescription;
   @Bind(R.id.lo_temp) TextView lowTemperature;
   @Bind(R.id.hi_temp) TextView highTemperature;
