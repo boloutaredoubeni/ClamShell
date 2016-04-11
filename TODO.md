@@ -15,7 +15,6 @@
 * Calculator widget
 
 ### Searching
-* Voice Search
 * Search through contacts
 * Search through the web
 * Search through apps if possible

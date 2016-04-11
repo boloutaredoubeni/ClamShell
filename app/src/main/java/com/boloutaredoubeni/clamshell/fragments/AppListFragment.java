@@ -118,6 +118,7 @@ public class AppListFragment
   @Override
   public void executeVoiceSearch(CharSequence query) {
     searchBox.setText(query);
+    executeSearch(query);
   }
 
   // TODO: enhancement, consider putting a loading screen or load apps one by
