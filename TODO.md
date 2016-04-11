@@ -2,7 +2,7 @@
 2. Apps are duplicated
 3. Turn the async downloadng into services and syncers
 4. Save the apps to a cache
-5. Enable changing the wallpaper
+5. Enable cropping the wallpaper (v2)
 6. Fix the photo stream
 7. Fix searching
 8. Search through contacts
