@@ -58,10 +58,11 @@ public class AppListFragment extends Fragment {
 
   private void loadView() {
 
-    recyclerView.setHasFixedSize(true);
+//    recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(
         new GridLayoutManager(getActivity(), APP_NUM_WIDTH));
-    recyclerView.addItemDecoration(new ItemOffsetDecoration(1));
+//    recyclerView.addItemDecoration(new ItemOffsetDecoration(1));
+
     List<UserApplicationInfo> apps = new ArrayList<>();
 
     mAdapter = new AppListAdapter(getActivity(), apps);
