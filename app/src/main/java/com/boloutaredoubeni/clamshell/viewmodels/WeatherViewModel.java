@@ -89,6 +89,8 @@ public class WeatherViewModel {
 
   public String getDay() { return day != null ? day.name() : "Anyday now"; }
 
+  // FIXME: add code to change color on demand
+
   public interface OnWeatherChangeListener {
     void weatherChanged(WeatherViewModel viewmodel);
     void forecastChanged(List<WeatherViewModel> viewModels);
