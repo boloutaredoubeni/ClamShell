@@ -1,4 +1,4 @@
-1. Apps load slowly
+1. Apps load slowly!!!
 2. Apps are duplicated
 3. Turn the async downloadng into services and syncers
 4. Save the apps to a cache
@@ -16,3 +16,4 @@
 16. Calculator widget
 17. Show user location
 18. Fix search ui
+19. Enable changing from grid to list view
