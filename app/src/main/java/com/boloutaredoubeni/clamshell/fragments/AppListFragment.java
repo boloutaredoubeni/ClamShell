@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.boloutaredoubeni.clamshell.R;
 import com.boloutaredoubeni.clamshell.adapters.AppListAdapter;
@@ -20,22 +22,27 @@ import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import timber.log.Timber;
 
 /**
  * Copyright 2016 Boloutare Doubeni
  */
-public class AppListFragment extends Fragment {
+public class AppListFragment extends Fragment  {
 
   private static final int APP_NUM_WIDTH = 4;
+  private static final int RESULT_SPEECH = 1;
 
   @Bind(R.id.app_list) RecyclerView recyclerView;
 
   @Bind(R.id.search_edit_text) EditText searchBox;
+  @Bind(R.id.voice_search)
+  ImageButton voiceSearch;
 
   private AppListAdapter adapter;
 
@@ -73,6 +80,17 @@ public class AppListFragment extends Fragment {
     adapter.getFilter().filter(query.toString());
   }
 
+  @OnClick(R.id.voice_search)
+  void voiceSearch(View v) {
+    searchBox.setText("");
+    //TODO: execute search
+    Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+    i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+    i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+    i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Search ...");
+    startActivityForResult(i, RESULT_SPEECH);
+  }
+
   /**
    *
    * @return A list of applications that can be opened via a launcher
@@ -92,6 +110,8 @@ public class AppListFragment extends Fragment {
     Timber.i("Found %d apps", apps.size());
     return apps;
   }
+
+
 
   // TODO: enhancement, consider putting a loading screen or load apps one by
   // one

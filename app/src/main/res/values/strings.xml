@@ -4,4 +4,6 @@
     <string name="title_activity_tab_example">TabExampleActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="voice_search_description">voice search</string>
+    <string name="search_text">Search</string>
 </resources>
