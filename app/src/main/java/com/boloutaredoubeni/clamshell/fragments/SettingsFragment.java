@@ -40,34 +40,37 @@ public class SettingsFragment extends Fragment {
     return view;
   }
 
-  @OnLongClick(R.id.dummy_layout) boolean pickWallpaper(View v) {
-    Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+  @OnLongClick(R.id.dummy_layout)
+  boolean pickWallpaper(View v) {
+    Intent i = new Intent(
+        Intent.ACTION_PICK,
+        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
     getActivity().startActivityForResult(i, SELECT_WALLPAPER);
     return true;
   }
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
+    //    super.onActivityResult(requestCode, resultCode, data);
     switch (requestCode) {
-      case SELECT_WALLPAPER: {
-        getActivity();
-        if (resultCode == Activity.RESULT_OK) {
-          Uri imageUri = data.getData();
-          changeWallpaper(imageUri);
-        }
-        break;
+    case SELECT_WALLPAPER: {
+      getActivity();
+      if (resultCode == Activity.RESULT_OK) {
+        Uri imageUri = data.getData();
+        changeWallpaper(imageUri);
       }
+      break;
+    }
     }
   }
 
   private void changeWallpaper(Uri imgSrc) {
     try {
-      Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imgSrc);
+      Bitmap bitmap = MediaStore.Images.Media.getBitmap(
+          getActivity().getContentResolver(), imgSrc);
       WallpaperManager.getInstance(getActivity()).setBitmap(bitmap);
     } catch (IOException e) {
       Timber.e(e.getMessage());
     }
   }
-
 }

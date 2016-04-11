@@ -38,8 +38,6 @@ public final class AppsViewActivity
   private static final int SETTINGS_FRAG = 2;
   private static final int NUM_OF_TABS = 3;
 
-
-
   @Bind(R.id.app_view_container) ViewPager pager;
 
   @Override
@@ -81,27 +79,27 @@ public final class AppsViewActivity
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
+    //    super.onActivityResult(requestCode, resultCode, data);
     switch (requestCode) {
-      case SettingsFragment.SELECT_WALLPAPER: {
-        if (resultCode == Activity.RESULT_OK) {
-          Uri imageUri = data.getData();
-          changeWallpaper(imageUri);
-        }
-        break;
+    case SettingsFragment.SELECT_WALLPAPER: {
+      if (resultCode == Activity.RESULT_OK) {
+        Uri imageUri = data.getData();
+        changeWallpaper(imageUri);
       }
+      break;
+    }
     }
   }
 
   private void changeWallpaper(Uri imgSrc) {
     try {
-      Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgSrc);
+      Bitmap bitmap =
+          MediaStore.Images.Media.getBitmap(getContentResolver(), imgSrc);
       WallpaperManager.getInstance(this).setBitmap(bitmap);
     } catch (IOException e) {
       Timber.e(e.getMessage());
     }
   }
-
 
   private final class SwipePageAdapter extends FragmentPagerAdapter {
 

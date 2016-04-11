@@ -111,22 +111,21 @@ public class AppListAdapter
 
   private static class AppInfoFilter extends Filter {
 
-
     private AppListAdapter mAdapter;
-//    private final List<UserApplicationInfo> mFilteredList;
+    //    private final List<UserApplicationInfo> mFilteredList;
 
     private AppInfoFilter(@NonNull AppListAdapter adapter) {
       super();
       mAdapter = adapter;
-//      mFilteredList = new ArrayList<>();
+      //      mFilteredList = new ArrayList<>();
     }
 
     // FIXME: this isnt working properly
     @Override
     protected FilterResults performFiltering(CharSequence constraint) {
       List<UserApplicationInfo> mFilteredList = new ArrayList<>();
-//      mFilteredList.clear();
-       FilterResults results = new FilterResults();
+      //      mFilteredList.clear();
+      FilterResults results = new FilterResults();
       if (constraint == null || constraint.length() == 0) {
         mFilteredList.addAll(mAdapter.mOriginalApps);
       } else {
