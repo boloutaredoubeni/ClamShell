@@ -35,7 +35,7 @@ public class AppListAdapter
 
   private List<UserApplicationInfo> mOriginalApps;
   private List<UserApplicationInfo> mApps;
-  private Context mContext;
+  private Context context;
 
   // TODO: custom scroll bar
   // Fixme: allow seeing app info
@@ -45,7 +45,7 @@ public class AppListAdapter
                         @NonNull List<UserApplicationInfo> apps) {
     mApps = apps;
     mOriginalApps = apps;
-    mContext = context;
+    this.context = context;
   }
 
   @Override
@@ -70,17 +70,17 @@ public class AppListAdapter
     holder.icon.setImageDrawable(app.getIcon());
     holder.appName.setText(app.getAppName());
     holder.icon.setOnClickListener(v -> {
-      PackageManager pm = mContext.getPackageManager();
+      PackageManager pm = context.getPackageManager();
       Intent i = pm.getLaunchIntentForPackage(app.getPackage());
       Timber.i("Starting %s", app.getPackage());
-      mContext.startActivity(i);
+      context.startActivity(i);
     });
     holder.icon.setOnLongClickListener(v -> {
-      Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
+      Animation shake = AnimationUtils.loadAnimation(context, R.anim.shake);
       v.startAnimation(shake);
       AppActionListener listener;
       try {
-        listener = (AppActionListener)mContext;
+        listener = (AppActionListener) context;
         listener.onAppAction(app);
       } catch (ClassCastException e) {
         Timber.e("The context is not an AppActionListener: %s", e.getMessage());
@@ -88,6 +88,7 @@ public class AppListAdapter
       return true;
     });
   }
+
 
   @Override
   public int getItemCount() {

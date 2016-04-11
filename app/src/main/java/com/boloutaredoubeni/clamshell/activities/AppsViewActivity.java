@@ -19,7 +19,7 @@ import com.boloutaredoubeni.clamshell.R;
 import com.boloutaredoubeni.clamshell.adapters.AppListAdapter;
 import com.boloutaredoubeni.clamshell.fragments.AppListFragment;
 import com.boloutaredoubeni.clamshell.fragments.DashboardFragment;
-import com.boloutaredoubeni.clamshell.fragments.SettingsFragment;
+import com.boloutaredoubeni.clamshell.fragments.HomeScreenFragment;
 import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
 
 import java.io.IOException;
@@ -37,6 +37,7 @@ public final class AppsViewActivity
   private static final int APP_LIST_FRAG = 1;
   private static final int SETTINGS_FRAG = 2;
   private static final int NUM_OF_TABS = 3;
+  private static final int APP_DELETED = 100;
 
   @Bind(R.id.app_view_container) ViewPager pager;
 
@@ -71,23 +72,26 @@ public final class AppsViewActivity
                              Intent i = new Intent(Intent.ACTION_DELETE);
                              i.setData(
                                  Uri.parse("package:" + app.getPackage()));
-                             startActivity(i);
+                             startActivityForResult(i, APP_DELETED);
                            })
         .setCancelable(true)
         .show();
   }
 
+
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     //    super.onActivityResult(requestCode, resultCode, data);
     switch (requestCode) {
-    case SettingsFragment.SELECT_WALLPAPER: {
+    case HomeScreenFragment.SELECT_WALLPAPER: {
       if (resultCode == Activity.RESULT_OK) {
         Uri imageUri = data.getData();
         changeWallpaper(imageUri);
       }
       break;
     }
+      case APP_DELETED:
+        break;
     }
   }
 
@@ -117,7 +121,7 @@ public final class AppsViewActivity
         return new AppListFragment();
       case SETTINGS_FRAG:
         Timber.d("Moving to settings");
-        return new SettingsFragment();
+        return new HomeScreenFragment();
       }
       return null;
     }

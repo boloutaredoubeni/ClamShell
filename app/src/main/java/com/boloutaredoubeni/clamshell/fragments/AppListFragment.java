@@ -33,7 +33,7 @@ import timber.log.Timber;
 /**
  * Copyright 2016 Boloutare Doubeni
  */
-public class AppListFragment extends Fragment  {
+public class AppListFragment extends Fragment {
 
   private static final int APP_NUM_WIDTH = 4;
   private static final int RESULT_SPEECH = 1;
@@ -41,8 +41,7 @@ public class AppListFragment extends Fragment  {
   @Bind(R.id.app_list) RecyclerView recyclerView;
 
   @Bind(R.id.search_edit_text) EditText searchBox;
-  @Bind(R.id.voice_search)
-  ImageButton voiceSearch;
+  @Bind(R.id.voice_search) ImageButton voiceSearch;
 
   private AppListAdapter adapter;
 
@@ -83,9 +82,10 @@ public class AppListFragment extends Fragment  {
   @OnClick(R.id.voice_search)
   void voiceSearch(View v) {
     searchBox.setText("");
-    //TODO: execute search
+    // TODO: execute search
     Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-    i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+    i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+               RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
     i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
     i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Search ...");
     startActivityForResult(i, RESULT_SPEECH);
@@ -110,8 +110,6 @@ public class AppListFragment extends Fragment  {
     Timber.i("Found %d apps", apps.size());
     return apps;
   }
-
-
 
   // TODO: enhancement, consider putting a loading screen or load apps one by
   // one
