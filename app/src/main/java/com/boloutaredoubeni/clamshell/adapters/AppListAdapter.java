@@ -80,7 +80,7 @@ public class AppListAdapter
       v.startAnimation(shake);
       AppActionListener listener;
       try {
-        listener = (AppActionListener) context;
+        listener = (AppActionListener)context;
         listener.onAppAction(app);
       } catch (ClassCastException e) {
         Timber.e("The context is not an AppActionListener: %s", e.getMessage());
@@ -88,7 +88,6 @@ public class AppListAdapter
       return true;
     });
   }
-
 
   @Override
   public int getItemCount() {

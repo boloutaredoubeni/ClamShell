@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.boloutaredoubeni.clamshell.R;
+import com.boloutaredoubeni.clamshell.activities.AppsViewActivity;
 import com.boloutaredoubeni.clamshell.adapters.AppListAdapter;
 import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
 
@@ -33,10 +34,11 @@ import timber.log.Timber;
 /**
  * Copyright 2016 Boloutare Doubeni
  */
-public class AppListFragment extends Fragment {
+public class AppListFragment
+    extends Fragment implements AppsViewActivity.OnVoiceSearchListener {
 
   private static final int APP_NUM_WIDTH = 4;
-  private static final int RESULT_SPEECH = 1;
+  public static final int RESULT_SPEECH = 500;
 
   @Bind(R.id.app_list) RecyclerView recyclerView;
 
@@ -88,7 +90,7 @@ public class AppListFragment extends Fragment {
                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
     i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
     i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Search ...");
-    startActivityForResult(i, RESULT_SPEECH);
+    getActivity().startActivityForResult(i, RESULT_SPEECH);
   }
 
   /**
@@ -109,6 +111,13 @@ public class AppListFragment extends Fragment {
     }
     Timber.i("Found %d apps", apps.size());
     return apps;
+  }
+
+
+
+  @Override
+  public void executeVoiceSearch(CharSequence query) {
+    searchBox.setText(query);
   }
 
   // TODO: enhancement, consider putting a loading screen or load apps one by

@@ -11,9 +11,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.ViewGroup;
 
 import com.boloutaredoubeni.clamshell.R;
 import com.boloutaredoubeni.clamshell.adapters.AppListAdapter;
@@ -23,6 +25,7 @@ import com.boloutaredoubeni.clamshell.fragments.HomeScreenFragment;
 import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
 
 import java.io.IOException;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,6 +43,7 @@ public final class AppsViewActivity
   private static final int APP_DELETED = 100;
 
   @Bind(R.id.app_view_container) ViewPager pager;
+  private SwipePageAdapter adapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,7 @@ public final class AppsViewActivity
   }
 
   private void setupView() {
-    SwipePageAdapter adapter = new SwipePageAdapter(getFragmentManager());
+    adapter = new SwipePageAdapter(getFragmentManager());
     pager.setAdapter(adapter);
     pager.setCurrentItem(APP_LIST_FRAG);
   }
@@ -78,20 +82,31 @@ public final class AppsViewActivity
         .show();
   }
 
-
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     //    super.onActivityResult(requestCode, resultCode, data);
-    switch (requestCode) {
-    case HomeScreenFragment.SELECT_WALLPAPER: {
-      if (resultCode == Activity.RESULT_OK) {
+    if (resultCode == Activity.RESULT_OK) {
+      switch (requestCode) {
+      case HomeScreenFragment.SELECT_WALLPAPER:
         Uri imageUri = data.getData();
         changeWallpaper(imageUri);
-      }
-      break;
-    }
-      case APP_DELETED:
         break;
+      case APP_DELETED:
+        Timber.e("You should notify the adapter or list here");
+        break;
+      case AppListFragment.RESULT_SPEECH:
+        if (data != null) {
+          try {
+            List<String> query =
+                data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            OnVoiceSearchListener listener =
+                (OnVoiceSearchListener)adapter.currentFragment;
+            listener.executeVoiceSearch(query.get(0));
+          } catch (Exception e) {
+            Timber.e(e.getMessage());
+          }
+        }
+      }
     }
   }
 
@@ -106,7 +121,13 @@ public final class AppsViewActivity
     }
   }
 
+  public interface OnVoiceSearchListener {
+    void executeVoiceSearch(CharSequence query);
+  }
+
   private final class SwipePageAdapter extends FragmentPagerAdapter {
+
+    Fragment currentFragment;
 
     public SwipePageAdapter(@NonNull FragmentManager fm) { super(fm); }
 
@@ -129,6 +150,15 @@ public final class AppsViewActivity
     @Override
     public int getCount() {
       return NUM_OF_TABS;
+    }
+
+    @Override
+    public void setPrimaryItem(ViewGroup container, int position,
+                               Object object) {
+      if (currentFragment != object) {
+        currentFragment = (Fragment)object;
+      }
+      super.setPrimaryItem(container, position, object);
     }
   }
 }
