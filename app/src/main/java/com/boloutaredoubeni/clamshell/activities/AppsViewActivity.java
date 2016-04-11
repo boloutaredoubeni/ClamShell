@@ -96,6 +96,7 @@ public final class AppsViewActivity
       Bitmap bitmap =
           MediaStore.Images.Media.getBitmap(getContentResolver(), imgSrc);
       WallpaperManager.getInstance(this).setBitmap(bitmap);
+      Timber.i("The wallpaper has been changed");
     } catch (IOException e) {
       Timber.e(e.getMessage());
     }
