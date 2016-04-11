@@ -20,6 +20,7 @@
         android:text="app name"
         android:gravity="center"
         android:scrollHorizontally="true"
+        android:textColor="@color/textColor"
         android:ellipsize="end"
         android:maxLines="1"
         android:maxEms="10"
