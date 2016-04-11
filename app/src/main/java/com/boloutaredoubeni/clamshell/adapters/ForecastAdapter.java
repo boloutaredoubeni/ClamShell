@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.boloutaredoubeni.clamshell.R;
@@ -69,8 +68,6 @@ public class ForecastAdapter
     @Bind(R.id.forecast_day_of_week) TextView day;
     @Bind(R.id.forecast_weather_description) TextView description;
     @Bind(R.id.forecast_hi_temp) TextView hi;
-//    @Bind(R.id.forecast_lo_temp) TextView lo;
-    @Bind(R.id.forecast_weather_icon) ImageView icon;
 
     public ViewHolder(View itemView) {
       super(itemView);
