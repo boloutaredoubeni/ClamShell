@@ -38,7 +38,6 @@ public class ForecastAdapter
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
     final WeatherViewModel model = mForecast.get(position);
-    holder.city.setText(model.getCity());
 //    holder.day.setText(model.getDay());
     holder.description.setText(model.getDescription());
     holder.hi.setText(model.getHi());
@@ -67,7 +66,6 @@ public class ForecastAdapter
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
-    @Bind(R.id.forecast_city_name) TextView city;
     @Bind(R.id.forecast_day_of_week) TextView day;
     @Bind(R.id.forecast_weather_description) TextView description;
     @Bind(R.id.forecast_hi_temp) TextView hi;
