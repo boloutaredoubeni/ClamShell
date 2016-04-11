@@ -66,7 +66,6 @@ public class DashboardFragment
   @Bind(R.id.current_weather_description) TextView weatherDescription;
   @Bind(R.id.lo_temp) TextView lowTemperature;
   @Bind(R.id.hi_temp) TextView highTemperature;
-  @Bind(R.id.current_weather_icon) ImageView icon;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
