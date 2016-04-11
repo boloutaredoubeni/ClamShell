@@ -34,7 +34,7 @@ public final class AppsViewActivity
   // FIXME: get location permissions
 
   private static final int DASHBOARD_FRAG = 0;
-  private static final int APPLIST_FRAG = 1;
+  private static final int APP_LIST_FRAG = 1;
   private static final int SETTINGS_FRAG = 2;
   private static final int NUM_OF_TABS = 3;
 
@@ -53,7 +53,7 @@ public final class AppsViewActivity
   private void setupView() {
     SwipePageAdapter adapter = new SwipePageAdapter(getFragmentManager());
     pager.setAdapter(adapter);
-    pager.setCurrentItem(APPLIST_FRAG);
+    pager.setCurrentItem(APP_LIST_FRAG);
   }
 
   @Override
@@ -113,7 +113,7 @@ public final class AppsViewActivity
       case DASHBOARD_FRAG:
         Timber.d("Moving to dashboard");
         return new DashboardFragment();
-      case APPLIST_FRAG:
+      case APP_LIST_FRAG:
         Timber.d("Moving to app list");
         return new AppListFragment();
       case SETTINGS_FRAG:

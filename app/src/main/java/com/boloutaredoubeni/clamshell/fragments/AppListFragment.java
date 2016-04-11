@@ -17,7 +17,6 @@ import android.widget.EditText;
 import com.boloutaredoubeni.clamshell.R;
 import com.boloutaredoubeni.clamshell.adapters.AppListAdapter;
 import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
-import com.boloutaredoubeni.clamshell.views.ItemOffsetDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,7 @@ public class AppListFragment extends Fragment {
 
   @Bind(R.id.search_edit_text) EditText searchBox;
 
-  private AppListAdapter mAdapter;
+  private AppListAdapter adapter;
 
   @Nullable
   @Override
@@ -65,13 +64,13 @@ public class AppListFragment extends Fragment {
 
     List<UserApplicationInfo> apps = new ArrayList<>();
 
-    mAdapter = new AppListAdapter(getActivity(), apps);
-    recyclerView.setAdapter(mAdapter);
+    adapter = new AppListAdapter(getActivity(), apps);
+    recyclerView.setAdapter(adapter);
   }
 
   @OnTextChanged(R.id.search_edit_text)
   void executeSearch(CharSequence query) {
-    mAdapter.getFilter().filter(query.toString());
+    adapter.getFilter().filter(query.toString());
   }
 
   /**
@@ -106,7 +105,7 @@ public class AppListFragment extends Fragment {
     @Override
     protected void onPostExecute(List<UserApplicationInfo> apps) {
       super.onPostExecute(apps);
-      mAdapter.clearThenAddAll(apps);
+      adapter.clearThenAddAll(apps);
       Timber.d("Adding all apps to the view");
     }
   }
