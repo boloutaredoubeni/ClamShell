@@ -41,7 +41,7 @@ public class ForecastAdapter
 //    holder.day.setText(model.getDay());
     holder.description.setText(model.getDescription());
     holder.hi.setText(model.getHi());
-    holder.lo.setText(model.getLo());
+//    holder.lo.setText(model.getLo());
   }
 
   @Override
@@ -69,7 +69,7 @@ public class ForecastAdapter
     @Bind(R.id.forecast_day_of_week) TextView day;
     @Bind(R.id.forecast_weather_description) TextView description;
     @Bind(R.id.forecast_hi_temp) TextView hi;
-    @Bind(R.id.forecast_lo_temp) TextView lo;
+//    @Bind(R.id.forecast_lo_temp) TextView lo;
     @Bind(R.id.forecast_weather_icon) ImageView icon;
 
     public ViewHolder(View itemView) {
