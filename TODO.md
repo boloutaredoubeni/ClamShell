@@ -12,6 +12,8 @@
 12. Allow seeing train times w/ notifications
 13. Allow seeing recent apps
 14. Voice Search
+15. Add colors to weather widget
+16. Save shortcuts
 15. Bookmark webpages (v2)
 16. Calculator widget
 17. Show user location
