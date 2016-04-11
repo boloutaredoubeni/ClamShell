@@ -27,7 +27,7 @@ import timber.log.Timber;
  */
 public class SettingsFragment extends Fragment {
 
-  public static final int SELECT_WALLPAPER = -1;
+  public static final int SELECT_WALLPAPER = 1;
 
   @Bind(R.id.dummy_layout) View homeScreen;
 
