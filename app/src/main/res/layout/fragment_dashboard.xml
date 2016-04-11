@@ -11,10 +11,9 @@
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <RelativeLayout
             android:background="#42000000"
             android:textColor="#E5DBCF"
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -51,7 +50,7 @@
                 android:id="@+id/forecast_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-        </LinearLayout>
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
