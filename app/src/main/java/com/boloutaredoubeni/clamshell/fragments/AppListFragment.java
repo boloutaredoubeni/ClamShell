@@ -119,8 +119,6 @@ public class AppListFragment
     executeSearch(query);
   }
 
-  // TODO: enhancement, consider putting a loading screen or load apps one by
-  // one
   private final class GetUserAppsTask extends AsyncTask<Void, Void, AppList> {
     @Override
     protected AppList doInBackground(Void... params) {

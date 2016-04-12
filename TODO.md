@@ -5,11 +5,11 @@
 * Enable changing from grid to list view
 * Allow seeing recent apps
 
-3. Turn the async downloadng into services and syncers
+3. Turn the async downloading into services and syncers
 
 ### Dashboard
-* Fix the photo stream
-* Allow seeing train times w/ notifications
+* Fix the photo stream (v2)
+* Allow seeing train times w/ notifications (v2)
 * Add colors to weather widget
 * Calculator widget
 
@@ -21,8 +21,8 @@
 
 ### Home Screen
 * Enable cropping the wallpaper (v2)
-* Allow dragging favorites
-* Save shortcuts
+* Allow dragging favorites (v2)
+* Save shortcuts (v2)
 * Bookmark webpages (v2)
 
 ## Testing

@@ -53,13 +53,11 @@ public class DashboardFragment
   public static final int MAX_NUM_PHOTOS = 10;
 
   private WeatherViewModel mWeatherCard;
-  private PhotoCarouselAdapter mPhotoAdapter;
   private GoogleApiClient mClient;
   private ForecastAdapter mForecastAdapter;
   private Location mLocation;
 
   @Bind(R.id.forecast_list) RecyclerView forecastRecycler;
-  @Bind(R.id.photo_recycler) RecyclerView photoCarousel;
   @Bind(R.id.city_name) TextView city;
   @Bind(R.id.current_temp) TextView currentTemp;
   @Bind(R.id.current_weather_description) TextView weatherDescription;
@@ -76,7 +74,6 @@ public class DashboardFragment
                            Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
     ButterKnife.bind(this, view);
-    setupPhotoCarousel();
     setupWeatherView();
     return view;
   }
@@ -96,7 +93,6 @@ public class DashboardFragment
   @Override
   public void onResume() {
     super.onResume();
-    getRecentPhotos();
   }
 
   @Override
@@ -148,42 +144,6 @@ public class DashboardFragment
                     .build();
       Timber.i("Got the google api client");
     }
-  }
-
-  private void getRecentPhotos() {
-    Cursor cursor = getActivity().getContentResolver().query(
-        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null, null,
-        null);
-
-    List<UserPhoto> photos = new ArrayList<>();
-
-    // FIXME: async please!!
-    if (cursor != null && cursor.getCount() > 0) {
-      cursor.moveToFirst();
-      for (int i = 0; i < MAX_NUM_PHOTOS; ++i) {
-        if (i == cursor.getCount()) {
-          break;
-        }
-        cursor.moveToPosition(i);
-        String url = cursor.getString(UserPhoto.COL_URL);
-        String name = cursor.getString(UserPhoto.COL_NAME);
-
-        photos.add(UserPhoto.create(url, name));
-      }
-
-      cursor.close();
-    }
-
-    mPhotoAdapter.clearThenAddAll(photos);
-  }
-
-  private void setupPhotoCarousel() {
-    LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-    llm.setOrientation(LinearLayoutManager.HORIZONTAL);
-    photoCarousel.setLayoutManager(llm);
-    mPhotoAdapter = new PhotoCarouselAdapter(getActivity(), new ArrayList<>());
-    photoCarousel.setAdapter(mPhotoAdapter);
-    Timber.i("The carousel has been setup");
   }
 
   private void setupWeatherView() {

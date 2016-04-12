@@ -51,21 +51,4 @@
 
     </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        card_view:elevation="20dp"
-        android:layout_margin="10dp"
-        android:background="@color/eggshell"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.v7.widget.RecyclerView
-                android:orientation="horizontal"
-                android:id="@+id/photo_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
 </LinearLayout>
