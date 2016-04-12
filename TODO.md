@@ -18,7 +18,6 @@
 * Search through contacts
 * Search through the web
 * Search through apps if possible
-* Fix searching
 * Fix search ui
 
 ### Home Screen

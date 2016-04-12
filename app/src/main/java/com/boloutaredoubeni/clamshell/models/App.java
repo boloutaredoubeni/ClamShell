@@ -13,9 +13,9 @@ import java.text.Collator;
  */
 public final class App implements Comparable<App> {
 
-  private final Drawable mIcon;
-  private final String mAppName;
-  private final String mPackage;
+  private final Drawable icon;
+  private final String appName;
+  private final String packageName;
 
   /**
    * @param context Only needed to get the package manager. A reference to
@@ -34,16 +34,16 @@ public final class App implements Comparable<App> {
 
   private App(@NonNull Drawable icon, @NonNull String appName,
               @NonNull String packageName) {
-    mIcon = icon;
-    mAppName = appName;
-    mPackage = packageName;
+    this.icon = icon;
+    this.appName = appName;
+    this.packageName = packageName;
   }
 
-  public Drawable getIcon() { return mIcon; }
+  public Drawable getIcon() { return icon; }
 
-  public String getAppName() { return mAppName; }
+  public String getAppName() { return appName; }
 
-  public String getPackage() { return mPackage; }
+  public String getPackage() { return packageName; }
 
   @Override
   public int compareTo(@NonNull App another) {
@@ -60,15 +60,15 @@ public final class App implements Comparable<App> {
 
     App that = (App)o;
 
-    return mIcon.equals(that.mIcon) && mAppName.equals(that.mAppName) &&
-        mPackage.equals(that.mPackage);
+    return icon.equals(that.icon) && appName.equals(that.appName) &&
+        packageName.equals(that.packageName);
   }
 
   @Override
   public int hashCode() {
-    int result = mIcon.hashCode();
-    result = 31 * result + mAppName.hashCode();
-    result = 31 * result + mPackage.hashCode();
+    int result = icon.hashCode();
+    result = 31 * result + appName.hashCode();
+    result = 31 * result + packageName.hashCode();
     return result;
   }
 }

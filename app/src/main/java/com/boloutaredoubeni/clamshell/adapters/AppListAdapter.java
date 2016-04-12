@@ -17,9 +17,9 @@ import android.widget.TextView;
 
 import com.boloutaredoubeni.clamshell.R;
 import com.boloutaredoubeni.clamshell.models.App;
+import com.boloutaredoubeni.clamshell.models.AppList;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -33,8 +33,7 @@ public class AppListAdapter
     extends RecyclerView.Adapter<AppListAdapter.ViewHolder>
     implements Filterable {
 
-  private List<App> originalApps;
-  private List<App> apps;
+  private AppList appList;
   private Context context;
   private AppFilter filter;
 
@@ -42,9 +41,8 @@ public class AppListAdapter
   // Fixme: allow seeing app info
   // https://stackoverflow.com/questions/11157102/how-i-can-start-application-info-screen-in-android
 
-  public AppListAdapter(@NonNull Context context, @NonNull List<App> apps) {
-    this.apps = apps;
-    originalApps = apps;
+  public AppListAdapter(@NonNull Context context, @NonNull AppList appList) {
+    this.appList = appList;
     this.context = context;
   }
 
@@ -55,18 +53,14 @@ public class AppListAdapter
     return new ViewHolder(itemView);
   }
 
-  public void clearThenAddAll(@NonNull List<App> apps) {
-    Collections.sort(apps);
-    this.apps.clear();
-    originalApps.clear();
-    this.apps.addAll(apps);
-    originalApps.addAll(apps);
+  public void setAppList(@NonNull AppList apps) {
+    appList.reinit(apps);
     notifyDataSetChanged();
   }
 
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
-    final App app = apps.get(position);
+    final App app = appList.get(position);
     holder.icon.setImageDrawable(app.getIcon());
     holder.appName.setText(app.getAppName());
     holder.icon.setOnClickListener(v -> {
@@ -91,7 +85,7 @@ public class AppListAdapter
 
   @Override
   public int getItemCount() {
-    return apps.size();
+    return appList.size();
   }
 
   @Override
@@ -119,11 +113,11 @@ public class AppListAdapter
     protected FilterResults performFiltering(CharSequence constraint) {
       FilterResults results = new FilterResults();
       if (constraint == null || constraint.length() == 0) {
-        results.values = originalApps;
-        results.count = originalApps.size();
+        results.values = appList.originals();
+        results.count = appList.originals().size();
       } else {
         List<App> filteredApps = new ArrayList<>();
-        for (App app : originalApps) {
+        for (App app : appList.originals()) {
           String name = app.getAppName().toLowerCase();
           final String query = constraint.toString().toLowerCase();
           if (name.startsWith(query)) {
@@ -142,7 +136,7 @@ public class AppListAdapter
       if (results.count == 0) {
         return;
       }
-      apps = (List<App>)results.values;
+      appList.addAll((List<App>)results.values);
       notifyDataSetChanged();
     }
   }

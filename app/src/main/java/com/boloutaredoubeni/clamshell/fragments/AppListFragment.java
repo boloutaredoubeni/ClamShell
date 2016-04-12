@@ -20,8 +20,8 @@ import com.boloutaredoubeni.clamshell.R;
 import com.boloutaredoubeni.clamshell.activities.AppsViewActivity;
 import com.boloutaredoubeni.clamshell.adapters.AppListAdapter;
 import com.boloutaredoubeni.clamshell.models.App;
+import com.boloutaredoubeni.clamshell.models.AppList;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -70,14 +70,16 @@ public class AppListFragment
         new GridLayoutManager(getActivity(), APP_NUM_WIDTH));
     //    recyclerView.addItemDecoration(new ItemOffsetDecoration(1));
 
-    List<App> apps = new ArrayList<>();
+    AppList appList = new AppList();
 
-    adapter = new AppListAdapter(getActivity(), apps);
+    adapter = new AppListAdapter(getActivity(), appList);
     recyclerView.setAdapter(adapter);
   }
 
   @OnTextChanged(R.id.search_edit_text)
   void executeSearch(CharSequence query) {
+    // TODO: search the users contacts
+    new SearchContactsTask().execute(query.toString());
     adapter.getFilter().filter(query.toString());
   }
 
@@ -97,19 +99,19 @@ public class AppListFragment
    *
    * @return A list of applications that can be opened via a launcher
    */
-  private List<App> listUserApps() {
+  private AppList listUserApps() {
     PackageManager manager = getActivity().getPackageManager();
-    List<App> apps = new ArrayList<>();
+    AppList appList = new AppList();
     Intent i = new Intent(Intent.ACTION_MAIN, null);
     i.addCategory(Intent.CATEGORY_LAUNCHER);
 
     List<ResolveInfo> launchableApps = manager.queryIntentActivities(i, 0);
     for (ResolveInfo info : launchableApps) {
       App app = App.createFrom(getActivity(), info);
-      apps.add(app);
+      appList.add(app);
     }
-    Timber.i("Found %d apps", apps.size());
-    return apps;
+    Timber.i("Found %d apps", appList.size());
+    return appList;
   }
 
   @Override
@@ -118,19 +120,53 @@ public class AppListFragment
     executeSearch(query);
   }
 
+
   // TODO: enhancement, consider putting a loading screen or load apps one by
   // one
-  private final class GetUserAppsTask extends AsyncTask<Void, Void, List<App>> {
+  private final class GetUserAppsTask extends AsyncTask<Void, Void, AppList> {
     @Override
-    protected List<App> doInBackground(Void... params) {
+    protected AppList doInBackground(Void... params) {
       return listUserApps();
     }
 
     @Override
-    protected void onPostExecute(List<App> apps) {
+    protected void onPostExecute(AppList apps) {
       super.onPostExecute(apps);
-      adapter.clearThenAddAll(apps);
+      adapter.setAppList(apps);
       Timber.d("Adding all apps to the view");
+    }
+  }
+
+  private final class SearchContactsTask extends AsyncTask<String, Void, List> {
+
+    @Override
+    protected List doInBackground(String... params) {
+//      ContentResolver contentResolver = getActivity().getContentResolver();
+//      Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null, null);
+//      if (cursor != null && cursor.getCount() > 0) {
+//        while (cursor.moveToNext()) {
+//          String id = cursor.getString(
+//              cursor.getColumnIndex(ContactsContract.Contacts._ID));
+//          String name = cursor.getString(cursor.getColumnIndex(
+//              ContactsContract.Contacts.DISPLAY_NAME));
+//
+//          if (Integer.parseInt(cursor.getString(cursor.getColumnIndex(
+//              ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
+//            Cursor pCur = cursor.query(
+//                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+//                null,
+//                ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?",
+//                new String[]{id}, null);
+//            while (pCur.moveToNext()) {
+//              String phoneNo = pCur.getString(pCur.getColumnIndex(
+//                  ContactsContract.CommonDataKinds.Phone.NUMBER));
+//              Toast.makeText(NativeContentProvider.this, "Name: " + name
+//                  + ", Phone No: " + phoneNo, Toast.LENGTH_SHORT).show();
+//            }
+//            pCur.close();
+//        }
+//      }
+      return null;
     }
   }
 }
