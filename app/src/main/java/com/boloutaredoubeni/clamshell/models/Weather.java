@@ -31,6 +31,7 @@ public class Weather {
 
   public static List<Weather>
   getWeeklyForecastFrom(@NonNull Forecast forecast) {
+    // FIXME: consolidate similar dates and calc hi/lo
     List<Weather> weeklyForecast = new ArrayList<>();
     String city = forecast.city.name;
     for (WeatherReport weather : forecast.list) {

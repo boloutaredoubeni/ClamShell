@@ -38,8 +38,6 @@ public class AppListAdapter
   private AppFilter filter;
 
   // TODO: custom scroll bar
-  // Fixme: allow seeing app info
-  // https://stackoverflow.com/questions/11157102/how-i-can-start-application-info-screen-in-android
 
   public AppListAdapter(@NonNull Context context, @NonNull AppList appList) {
     this.appList = appList;

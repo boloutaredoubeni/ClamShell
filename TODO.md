@@ -24,3 +24,5 @@
 * Allow dragging favorites
 * Save shortcuts
 * Bookmark webpages (v2)
+
+## Testing

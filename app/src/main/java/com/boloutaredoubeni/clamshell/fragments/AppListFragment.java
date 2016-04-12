@@ -86,7 +86,6 @@ public class AppListFragment
   @OnClick(R.id.voice_search)
   void voiceSearch(View v) {
     searchBox.setText("");
-    // TODO: execute search
     Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
     i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);

@@ -16,6 +16,7 @@ import java.util.List;
 public class WeatherViewModel {
 
   // FIXME: So api return 8 points per day, use this to calc hi's and lo's
+  // it explains the day error
 
   private final String DEGREES = "°F";
 

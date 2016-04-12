@@ -45,7 +45,8 @@ public class ForecastAdapter
 
   @Override
   public int getItemCount() {
-    return forecast.size();
+    // FIXME: temp hack!! Please fix the forecast data parsing
+    return forecast.size() < 5 ? forecast.size() : 5;
   }
 
   public void clearAndAddAll(List<WeatherViewModel> viewModels) {
