@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.boloutaredoubeni.clamshell.R;
-import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
+import com.boloutaredoubeni.clamshell.models.App;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,18 +33,18 @@ public class AppListAdapter
     extends RecyclerView.Adapter<AppListAdapter.ViewHolder>
     implements Filterable {
 
-  private List<UserApplicationInfo> mOriginalApps;
-  private List<UserApplicationInfo> mApps;
+  private List<App> originalApps;
+  private List<App> apps;
   private Context context;
+  private AppFilter filter;
 
   // TODO: custom scroll bar
   // Fixme: allow seeing app info
   // https://stackoverflow.com/questions/11157102/how-i-can-start-application-info-screen-in-android
 
-  public AppListAdapter(@NonNull Context context,
-                        @NonNull List<UserApplicationInfo> apps) {
-    mApps = apps;
-    mOriginalApps = apps;
+  public AppListAdapter(@NonNull Context context, @NonNull List<App> apps) {
+    this.apps = apps;
+    originalApps = apps;
     this.context = context;
   }
 
@@ -55,18 +55,18 @@ public class AppListAdapter
     return new ViewHolder(itemView);
   }
 
-  public void clearThenAddAll(@NonNull List<UserApplicationInfo> apps) {
+  public void clearThenAddAll(@NonNull List<App> apps) {
     Collections.sort(apps);
-    mApps.clear();
-    mOriginalApps.clear();
-    mApps.addAll(apps);
-    mOriginalApps.addAll(apps);
+    this.apps.clear();
+    originalApps.clear();
+    this.apps.addAll(apps);
+    originalApps.addAll(apps);
     notifyDataSetChanged();
   }
 
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
-    final UserApplicationInfo app = mApps.get(position);
+    final App app = apps.get(position);
     holder.icon.setImageDrawable(app.getIcon());
     holder.appName.setText(app.getAppName());
     holder.icon.setOnClickListener(v -> {
@@ -91,12 +91,15 @@ public class AppListAdapter
 
   @Override
   public int getItemCount() {
-    return mApps.size();
+    return apps.size();
   }
 
   @Override
   public Filter getFilter() {
-    return new AppInfoFilter();
+    if (filter == null) {
+      filter = new AppFilter();
+    }
+    return filter;
   }
 
   static class ViewHolder extends RecyclerView.ViewHolder {
@@ -109,49 +112,40 @@ public class AppListAdapter
     }
   }
 
-  private class AppInfoFilter extends Filter {
-
-    private AppListAdapter mAdapter;
-    //    private final List<UserApplicationInfo> mFilteredList;
-
+  private class AppFilter extends Filter {
 
     // FIXME: this isnt working properly
     @Override
     protected FilterResults performFiltering(CharSequence constraint) {
-      List<UserApplicationInfo> mFilteredList = new ArrayList<>();
-      //      mFilteredList.clear();
       FilterResults results = new FilterResults();
       if (constraint == null || constraint.length() == 0) {
-        mFilteredList.addAll(mAdapter.mOriginalApps);
+        results.values = originalApps;
+        results.count = originalApps.size();
       } else {
-        final String filterPattern = constraint.toString().toLowerCase();
-        mFilteredList.clear();
-        // TODO: refine me
-        for (UserApplicationInfo app : mAdapter.mOriginalApps) {
-          if (app.getAppName().contains(filterPattern)) {
-            mFilteredList.add(app);
+        List<App> filteredApps = new ArrayList<>();
+        for (App app : apps) {
+          String name = app.getAppName().toLowerCase();
+          final String query = constraint.toString().toLowerCase();
+          if (name.startsWith(query)) {
+            filteredApps.add(app);
           }
+          results.values = filteredApps;
+          results.count = filteredApps.size();
         }
       }
-
-      results.values = mFilteredList;
-      results.count = mFilteredList.size();
       return results;
     }
 
     @Override
     protected void publishResults(CharSequence constraint,
                                   FilterResults results) {
-
-      if (results.count > 0) {
-        mAdapter.mApps.clear();
-        mAdapter.mApps.addAll((ArrayList<UserApplicationInfo>)results.values);
+      if (results.count == 0) {
+        return;
       }
-      mAdapter.notifyDataSetChanged();
+      apps = (List<App>)results.values;
+      notifyDataSetChanged();
     }
   }
 
-  public interface AppActionListener {
-    void onAppAction(UserApplicationInfo app);
-  }
+  public interface AppActionListener { void onAppAction(App app); }
 }

@@ -19,7 +19,7 @@ import android.widget.ImageButton;
 import com.boloutaredoubeni.clamshell.R;
 import com.boloutaredoubeni.clamshell.activities.AppsViewActivity;
 import com.boloutaredoubeni.clamshell.adapters.AppListAdapter;
-import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
+import com.boloutaredoubeni.clamshell.models.App;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class AppListFragment
         new GridLayoutManager(getActivity(), APP_NUM_WIDTH));
     //    recyclerView.addItemDecoration(new ItemOffsetDecoration(1));
 
-    List<UserApplicationInfo> apps = new ArrayList<>();
+    List<App> apps = new ArrayList<>();
 
     adapter = new AppListAdapter(getActivity(), apps);
     recyclerView.setAdapter(adapter);
@@ -97,16 +97,15 @@ public class AppListFragment
    *
    * @return A list of applications that can be opened via a launcher
    */
-  private List<UserApplicationInfo> listUserApps() {
+  private List<App> listUserApps() {
     PackageManager manager = getActivity().getPackageManager();
-    List<UserApplicationInfo> apps = new ArrayList<>();
+    List<App> apps = new ArrayList<>();
     Intent i = new Intent(Intent.ACTION_MAIN, null);
     i.addCategory(Intent.CATEGORY_LAUNCHER);
 
     List<ResolveInfo> launchableApps = manager.queryIntentActivities(i, 0);
     for (ResolveInfo info : launchableApps) {
-      UserApplicationInfo app =
-          UserApplicationInfo.createFrom(getActivity(), info);
+      App app = App.createFrom(getActivity(), info);
       apps.add(app);
     }
     Timber.i("Found %d apps", apps.size());
@@ -121,15 +120,14 @@ public class AppListFragment
 
   // TODO: enhancement, consider putting a loading screen or load apps one by
   // one
-  private final class GetUserAppsTask
-      extends AsyncTask<Void, Void, List<UserApplicationInfo>> {
+  private final class GetUserAppsTask extends AsyncTask<Void, Void, List<App>> {
     @Override
-    protected List<UserApplicationInfo> doInBackground(Void... params) {
+    protected List<App> doInBackground(Void... params) {
       return listUserApps();
     }
 
     @Override
-    protected void onPostExecute(List<UserApplicationInfo> apps) {
+    protected void onPostExecute(List<App> apps) {
       super.onPostExecute(apps);
       adapter.clearThenAddAll(apps);
       Timber.d("Adding all apps to the view");

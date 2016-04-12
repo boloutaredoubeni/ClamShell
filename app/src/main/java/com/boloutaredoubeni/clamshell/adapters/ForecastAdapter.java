@@ -21,10 +21,10 @@ import timber.log.Timber;
 public class ForecastAdapter
     extends RecyclerView.Adapter<ForecastAdapter.ViewHolder>
     implements WeatherViewModel.OnWeatherChangeListener {
-  private List<WeatherViewModel> mForecast;
+  private List<WeatherViewModel> forecast;
 
   public ForecastAdapter(List<WeatherViewModel> forecast) {
-    mForecast = forecast;
+    this.forecast = forecast;
   }
 
   @Override
@@ -36,7 +36,7 @@ public class ForecastAdapter
 
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
-    final WeatherViewModel model = mForecast.get(position);
+    final WeatherViewModel model = forecast.get(position);
     //    holder.day.setText(model.getDay());
     holder.description.setText(model.getDescription());
     holder.hi.setText(model.getHi());
@@ -45,12 +45,12 @@ public class ForecastAdapter
 
   @Override
   public int getItemCount() {
-    return mForecast.size();
+    return forecast.size();
   }
 
   public void clearAndAddAll(List<WeatherViewModel> viewModels) {
-    mForecast.clear();
-    mForecast.addAll(viewModels);
+    forecast.clear();
+    forecast.addAll(viewModels);
     notifyDataSetChanged();
   }
 

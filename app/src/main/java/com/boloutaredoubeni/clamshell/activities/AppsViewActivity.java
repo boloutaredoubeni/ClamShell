@@ -22,7 +22,7 @@ import com.boloutaredoubeni.clamshell.adapters.AppListAdapter;
 import com.boloutaredoubeni.clamshell.fragments.AppListFragment;
 import com.boloutaredoubeni.clamshell.fragments.DashboardFragment;
 import com.boloutaredoubeni.clamshell.fragments.HomeScreenFragment;
-import com.boloutaredoubeni.clamshell.models.UserApplicationInfo;
+import com.boloutaredoubeni.clamshell.models.App;
 
 import java.io.IOException;
 import java.util.List;
@@ -60,7 +60,7 @@ public final class AppsViewActivity
   }
 
   @Override
-  public void onAppAction(final UserApplicationInfo app) {
+  public void onAppAction(final App app) {
 
     new AlertDialog.Builder(this)
         .setPositiveButton(

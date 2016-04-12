@@ -11,8 +11,7 @@ import java.text.Collator;
 /**
  * Copyright 2016 Boloutare Doubeni
  */
-public final class UserApplicationInfo
-    implements Comparable<UserApplicationInfo> {
+public final class App implements Comparable<App> {
 
   private final Drawable mIcon;
   private final String mAppName;
@@ -24,17 +23,17 @@ public final class UserApplicationInfo
    * @param info Provided by the intent
    * @return An object with information about a launchable application
    */
-  public static UserApplicationInfo createFrom(@NonNull Context context,
-                                               @NonNull ResolveInfo info) {
+  public static App createFrom(@NonNull Context context,
+                               @NonNull ResolveInfo info) {
     PackageManager pm = context.getPackageManager();
     Drawable icon = info.activityInfo.loadIcon(pm);
     String appName = info.activityInfo.loadLabel(pm).toString();
     String packageName = info.activityInfo.packageName;
-    return new UserApplicationInfo(icon, appName, packageName);
+    return new App(icon, appName, packageName);
   }
 
-  private UserApplicationInfo(@NonNull Drawable icon, @NonNull String appName,
-                              @NonNull String packageName) {
+  private App(@NonNull Drawable icon, @NonNull String appName,
+              @NonNull String packageName) {
     mIcon = icon;
     mAppName = appName;
     mPackage = packageName;
@@ -47,7 +46,7 @@ public final class UserApplicationInfo
   public String getPackage() { return mPackage; }
 
   @Override
-  public int compareTo(@NonNull UserApplicationInfo another) {
+  public int compareTo(@NonNull App another) {
     final Collator collator = Collator.getInstance();
     return collator.compare(this.getAppName(), another.getAppName());
   }
@@ -59,7 +58,7 @@ public final class UserApplicationInfo
     if (o == null || getClass() != o.getClass())
       return false;
 
-    UserApplicationInfo that = (UserApplicationInfo)o;
+    App that = (App)o;
 
     return mIcon.equals(that.mIcon) && mAppName.equals(that.mAppName) &&
         mPackage.equals(that.mPackage);
