@@ -34,7 +34,7 @@ import timber.log.Timber;
 public final class AppsViewActivity
     extends Activity implements AppListAdapter.AppActionListener {
 
-  // FIXME: get location permissions
+  // FIXME: get runtime permissions for 6.0
 
   private static final int DASHBOARD_FRAG = 0;
   private static final int APP_LIST_FRAG = 1;

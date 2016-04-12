@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.boloutaredoubeni.clamshell.R;
 import com.boloutaredoubeni.clamshell.adapters.ForecastAdapter;
-import com.boloutaredoubeni.clamshell.adapters.PhotoCarouselAdapter;
 import com.boloutaredoubeni.clamshell.apis.owm.OpenWeatherMap;
 import com.boloutaredoubeni.clamshell.apis.owm.WeatherService;
 import com.boloutaredoubeni.clamshell.apis.owm.models.CurrentWeather;
@@ -149,6 +148,7 @@ public class DashboardFragment
   private void setupWeatherView() {
     LinearLayoutManager llm = new LinearLayoutManager(getActivity());
     llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+    forecastRecycler.setHasFixedSize(true);
     forecastRecycler.setLayoutManager(llm);
     mForecastAdapter = new ForecastAdapter(new ArrayList<>());
     forecastRecycler.setAdapter(mForecastAdapter);
