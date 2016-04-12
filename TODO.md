@@ -1,6 +1,5 @@
 ### App Draw
 * Apps load slowly!!!
-* Apps are duplicated
 * Save the apps to a cache
 * Make sure app list are updated when deleted
 * Enable changing from grid to list view
@@ -15,9 +14,9 @@
 * Calculator widget
 
 ### Searching
-* Search through contacts
-* Search through the web
-* Search through apps if possible
+* Search through contacts (v2)
+* Search through the web (v2)
+* Search through content of apps if possible (v2)
 * Fix search ui
 
 ### Home Screen
