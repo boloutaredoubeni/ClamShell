@@ -12,21 +12,16 @@ public final class AppList {
   private List<App> apps = new ArrayList<>();
   private List<App> originalApps = new ArrayList<>();
 
-  public AppList() {
-  }
+  public AppList() {}
 
   public void add(App app) {
     apps.add(app);
     originalApps.add(app);
   }
 
-  public void addAll(List<App> apps) {
-    this.apps = apps;
-  }
+  public void addAll(List<App> apps) { this.apps = apps; }
 
-  public App get(int position) {
-    return apps.get(position);
-  }
+  public App get(int position) { return apps.get(position); }
 
   public boolean contains(App app) {
     if (apps != null && originalApps != null) {
@@ -56,11 +51,7 @@ public final class AppList {
     originalApps = apps;
   }
 
-  public int size() {
-    return apps.size();
-  }
+  public int size() { return apps.size(); }
 
-  public List<App> originals() {
-    return originalApps;
-  }
+  public List<App> originals() { return originalApps; }
 }

@@ -33,7 +33,7 @@ public class AppListAdapter
     extends RecyclerView.Adapter<AppListAdapter.ViewHolder>
     implements Filterable {
 
-  private AppList appList;
+  private AppList appList = new AppList();
   private Context context;
   private AppFilter filter;
 
@@ -108,7 +108,6 @@ public class AppListAdapter
 
   private class AppFilter extends Filter {
 
-    // FIXME: this isnt working properly
     @Override
     protected FilterResults performFiltering(CharSequence constraint) {
       FilterResults results = new FilterResults();
@@ -133,9 +132,6 @@ public class AppListAdapter
     @Override
     protected void publishResults(CharSequence constraint,
                                   FilterResults results) {
-      if (results.count == 0) {
-        return;
-      }
       appList.addAll((List<App>)results.values);
       notifyDataSetChanged();
     }

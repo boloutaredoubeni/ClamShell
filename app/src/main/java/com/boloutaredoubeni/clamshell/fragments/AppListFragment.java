@@ -120,7 +120,6 @@ public class AppListFragment
     executeSearch(query);
   }
 
-
   // TODO: enhancement, consider putting a loading screen or load apps one by
   // one
   private final class GetUserAppsTask extends AsyncTask<Void, Void, AppList> {
@@ -141,31 +140,36 @@ public class AppListFragment
 
     @Override
     protected List doInBackground(String... params) {
-//      ContentResolver contentResolver = getActivity().getContentResolver();
-//      Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null, null);
-//      if (cursor != null && cursor.getCount() > 0) {
-//        while (cursor.moveToNext()) {
-//          String id = cursor.getString(
-//              cursor.getColumnIndex(ContactsContract.Contacts._ID));
-//          String name = cursor.getString(cursor.getColumnIndex(
-//              ContactsContract.Contacts.DISPLAY_NAME));
-//
-//          if (Integer.parseInt(cursor.getString(cursor.getColumnIndex(
-//              ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
-//            Cursor pCur = cursor.query(
-//                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-//                null,
-//                ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?",
-//                new String[]{id}, null);
-//            while (pCur.moveToNext()) {
-//              String phoneNo = pCur.getString(pCur.getColumnIndex(
-//                  ContactsContract.CommonDataKinds.Phone.NUMBER));
-//              Toast.makeText(NativeContentProvider.this, "Name: " + name
-//                  + ", Phone No: " + phoneNo, Toast.LENGTH_SHORT).show();
-//            }
-//            pCur.close();
-//        }
-//      }
+      //      ContentResolver contentResolver =
+      //      getActivity().getContentResolver();
+      //      Cursor cursor =
+      //      contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null,
+      //      null, null, null, null);
+      //      if (cursor != null && cursor.getCount() > 0) {
+      //        while (cursor.moveToNext()) {
+      //          String id = cursor.getString(
+      //              cursor.getColumnIndex(ContactsContract.Contacts._ID));
+      //          String name = cursor.getString(cursor.getColumnIndex(
+      //              ContactsContract.Contacts.DISPLAY_NAME));
+      //
+      //          if (Integer.parseInt(cursor.getString(cursor.getColumnIndex(
+      //              ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
+      //            Cursor pCur = cursor.query(
+      //                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+      //                null,
+      //                ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" =
+      //                ?",
+      //                new String[]{id}, null);
+      //            while (pCur.moveToNext()) {
+      //              String phoneNo = pCur.getString(pCur.getColumnIndex(
+      //                  ContactsContract.CommonDataKinds.Phone.NUMBER));
+      //              Toast.makeText(NativeContentProvider.this, "Name: " + name
+      //                  + ", Phone No: " + phoneNo,
+      //                  Toast.LENGTH_SHORT).show();
+      //            }
+      //            pCur.close();
+      //        }
+      //      }
       return null;
     }
   }
