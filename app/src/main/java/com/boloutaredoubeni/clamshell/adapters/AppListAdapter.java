@@ -123,7 +123,7 @@ public class AppListAdapter
         results.count = originalApps.size();
       } else {
         List<App> filteredApps = new ArrayList<>();
-        for (App app : apps) {
+        for (App app : originalApps) {
           String name = app.getAppName().toLowerCase();
           final String query = constraint.toString().toLowerCase();
           if (name.startsWith(query)) {
