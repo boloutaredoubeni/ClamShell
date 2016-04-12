@@ -113,8 +113,6 @@ public class AppListFragment
     return apps;
   }
 
-
-
   @Override
   public void executeVoiceSearch(CharSequence query) {
     searchBox.setText(query);

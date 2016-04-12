@@ -3,7 +3,7 @@
 * Apps are duplicated
 * Save the apps to a cache
 * Make sure app list are updated when deleted
-*  Enable changing from grid to list view
+* Enable changing from grid to list view
 * Allow seeing recent apps
 
 3. Turn the async downloadng into services and syncers

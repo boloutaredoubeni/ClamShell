@@ -96,7 +96,7 @@ public class AppListAdapter
 
   @Override
   public Filter getFilter() {
-    return new AppInfoFilter(this);
+    return new AppInfoFilter();
   }
 
   static class ViewHolder extends RecyclerView.ViewHolder {
@@ -109,16 +109,11 @@ public class AppListAdapter
     }
   }
 
-  private static class AppInfoFilter extends Filter {
+  private class AppInfoFilter extends Filter {
 
     private AppListAdapter mAdapter;
     //    private final List<UserApplicationInfo> mFilteredList;
 
-    private AppInfoFilter(@NonNull AppListAdapter adapter) {
-      super();
-      mAdapter = adapter;
-      //      mFilteredList = new ArrayList<>();
-    }
 
     // FIXME: this isnt working properly
     @Override
